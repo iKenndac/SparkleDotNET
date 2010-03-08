@@ -115,7 +115,7 @@ public void AppcastDidFinishLoading(SUAppcast anAppcast) {
             AbortUpdateWithError(new Exception(SUNoUpdateError));
         }
 
-        private void AbortUpdateWithError(Exception error) {
+        protected virtual void AbortUpdateWithError(Exception error) {
 
         }
         public override void AbortUpdate() {

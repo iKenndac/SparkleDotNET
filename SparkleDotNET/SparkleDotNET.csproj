@@ -55,6 +55,7 @@
     <Compile Include="Update Drivers\SUBasicUpdateDriver.cs" />
     <Compile Include="Update Drivers\SUProbingUpdateDriver.cs" />
     <Compile Include="Update Drivers\SUScheduledUpdateDriver.cs" />
+    <Compile Include="Update Drivers\SUUIBasedUpdateDriver.cs" />
     <Compile Include="Update Drivers\SUUpdateDriver.cs" />
     <Compile Include="Update Drivers\SUUserInitiatedUpdateDriver.cs" />
     <Compile Include="Version Comparison\SUStandardVersionComparator.cs" />
