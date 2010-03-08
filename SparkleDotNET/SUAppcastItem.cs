@@ -21,7 +21,7 @@ namespace SparkleDotNET {
                 Title = (string)dict.ValueForKey("title");
                 Date = (DateTime)dict.ValueForKey("pubDate");
                 ItemDescription = (string)dict.ValueForKey("description");
-                FileURL = new Uri((string)dict.ValueForKey("url"));
+                FileURL = new Uri((string)enclosure.ValueForKey("url"));
                 DSASignature = (string)enclosure.ValueForKey("sparkle:dsaSignature");
                 VersionString = newVersion;
                 MinimumSystemVersion = (string)enclosure.ValueForKey("sparkle:minimumSystemVersion");

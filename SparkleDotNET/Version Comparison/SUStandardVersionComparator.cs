@@ -29,7 +29,7 @@ namespace SparkleDotNET {
                 return SUCharacterType.kStringType;
             } else if (c.Equals(".")) {
                 return SUCharacterType.kPeriodType;
-            } else if ("1234567890".Contains(c)) {
+            } else if ("1234567890".Contains(c.Substring(0, 1))) {
                 // ^That could be done less stupidly, I'm sure.  
                 return SUCharacterType.kNumberType;
             } else {

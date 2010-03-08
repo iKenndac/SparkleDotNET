@@ -8,7 +8,7 @@ namespace SparkleDotNET {
 
         public const string SUNoUpdateError = "com.Sparkle.NoUpdate";
 
-        private SUAppcastItem updateItem;
+        protected SUAppcastItem updateItem;
 
         public SUBasicUpdateDriver(SUUpdater anUpdater)
             : base(anUpdater) {
@@ -40,7 +40,7 @@ namespace SparkleDotNET {
         // ---
 
         public bool IsItemNewer(SUAppcastItem item) {
-            return VersionComparator().CompareVersionToVersion(Host.Version, item.VersionString) > 0;
+            return VersionComparator().CompareVersionToVersion(Host.Version, item.VersionString) < 0;
         }
 
         public bool HostSupportsItem(SUAppcastItem item) {
@@ -101,14 +101,14 @@ public void AppcastDidFinishLoading(SUAppcast anAppcast) {
 
         #endregion
 
-        private void DidFindValidUpdate() {
+        public virtual void DidFindValidUpdate() {
             if (Updater.Delegate != null) {
                 Updater.Delegate.UpdaterDidFindValidUpdate(Updater, updateItem);
             }
             DownloadUpdate();
         }
 
-        private void DidNotFindUpdate() {
+        public virtual void DidNotFindUpdate() {
             if (Updater.Delegate != null) {
                 Updater.Delegate.UpdaterDidNotFindUpdate(Updater);
             }
@@ -120,6 +120,9 @@ public void AppcastDidFinishLoading(SUAppcast anAppcast) {
         }
         public override void AbortUpdate() {
             base.AbortUpdate();
+        }
+
+        private void DownloadUpdate() {
         }
 
     }

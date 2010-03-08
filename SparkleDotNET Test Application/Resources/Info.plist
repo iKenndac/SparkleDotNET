@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer/DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>KNShortVersionString</key>
+    <string>1.0</string>
+	<key>KNBundleVersion</key>
+    <string>40</string>
+	<key>KNBundleExecutable</key>
+    <string>SparkleDotNET Test Application.exe</string>
+	<key>KNBundleIdentifier</key>
+    <string>com.kennettnet.SparkleDotNETTest</string>
+	<key>KNBundleName</key>
+    <string>SparkleDotNET Test Application</string>
+	<key>KNBundleDisplayName</key>
+    <string>SparkleDotNET Test Application</string>
+    
+
+  </dict>
+</plist>
