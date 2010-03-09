@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="SparkleDotNET.SUUpdateAlertActionButtonsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="384">
+    <Grid>
+        <Button Content="Install Update" Height="23" HorizontalAlignment="Right" IsDefault="True" Name="InstallButton" VerticalAlignment="Bottom" Width="111" Margin="0,0,0,5" />
+        <Button Content="Remind Me Later" Height="23" HorizontalAlignment="Right" IsCancel="True" IsDefault="False" Margin="0,0,117,5" Name="RemindLaterButton" VerticalAlignment="Bottom" Width="111" />
+        <Button Content="Skip This Version" Height="23" HorizontalAlignment="Left" IsDefault="False" Name="SkipVersionButton" VerticalAlignment="Bottom" Width="121" Margin="0,0,0,5" />
+    </Grid>
+</UserControl>

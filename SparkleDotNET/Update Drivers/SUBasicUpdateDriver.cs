@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Net;
+using System.IO;
+using System.ComponentModel;
 
 namespace SparkleDotNET {
     class SUBasicUpdateDriver : SUUpdateDriver, SUAppcastDelegate {
 
         public const string SUNoUpdateError = "com.Sparkle.NoUpdate";
+        public const string SUSignatureError = "com.Sparkle.SignatureError";
+        public const string SUSkippedVersionKey = "SUSkippedVersion";
 
         protected SUAppcastItem updateItem;
+        private WebClient download;
+        private string downloadPath;
 
         public SUBasicUpdateDriver(SUUpdater anUpdater)
             : base(anUpdater) {
@@ -20,7 +27,7 @@ namespace SparkleDotNET {
 
             SUAppcast appcast = new SUAppcast();
             appcast.Delegate = this;
-            //Todo: Set user agent properly.
+            appcast.UserAgentString = String.Format("{0}/{1} SparkleDotNET", Host.Name, Host.DisplayVersion);
             appcast.FetchAppcastFromURL(new Uri(aUrl));
             
         }
@@ -52,8 +59,13 @@ namespace SparkleDotNET {
         }
 
         public bool ItemContainsSkippedVersion(SUAppcastItem item) {
-            return false;
-            // Todo: implement this
+
+            string skippedVersion = (string)Host.ObjectForUserDefaultsKey(SUSkippedVersionKey);
+            if (!String.IsNullOrWhiteSpace(skippedVersion)) {
+                return VersionComparator().CompareVersionToVersion(item.VersionString, skippedVersion) <= 0;
+            } else {
+                return false;
+            }
         }
 
         public bool ItemContainsValidUpdate(SUAppcastItem item) {
@@ -62,7 +74,7 @@ namespace SparkleDotNET {
 
         #region SUAppcastDelegate Members
 
-public void AppcastDidFinishLoading(SUAppcast anAppcast) {
+        public void AppcastDidFinishLoading(SUAppcast anAppcast) {
 
             if (Updater.Delegate != null) {
                 Updater.Delegate.UpdaterDidFinishLoadingAppcast(Updater, anAppcast);
@@ -101,14 +113,14 @@ public void AppcastDidFinishLoading(SUAppcast anAppcast) {
 
         #endregion
 
-        public virtual void DidFindValidUpdate() {
+        protected virtual void DidFindValidUpdate() {
             if (Updater.Delegate != null) {
                 Updater.Delegate.UpdaterDidFindValidUpdate(Updater, updateItem);
             }
             DownloadUpdate();
         }
 
-        public virtual void DidNotFindUpdate() {
+        protected virtual void DidNotFindUpdate() {
             if (Updater.Delegate != null) {
                 Updater.Delegate.UpdaterDidNotFindUpdate(Updater);
             }
@@ -122,7 +134,61 @@ public void AppcastDidFinishLoading(SUAppcast anAppcast) {
             base.AbortUpdate();
         }
 
-        private void DownloadUpdate() {
+        protected void DownloadUpdate() {
+
+            if (download == null) {
+                string path = Path.GetTempPath();
+                if (!Directory.Exists(path)) {
+                    Directory.CreateDirectory(path);
+                }
+
+                downloadPath = Path.Combine(path, updateItem.FileURL.Segments.Last());
+
+                download = new WebClient();
+                download.DownloadProgressChanged += DownloadDidProgress;
+                download.DownloadFileCompleted += DownloadDidComplete;
+                download.DownloadFileAsync(updateItem.FileURL, downloadPath);
+            }
+        }
+
+        public void CancelDownload(SUUpdateAlert alert) {
+
+            if (download != null) {
+                download.CancelAsync();
+            }
+
+        }
+
+        protected virtual void DownloadDidProgress(object sender, DownloadProgressChangedEventArgs e) {
+           // Do nothing. Override this if you care.
+        }
+
+        protected void DownloadDidComplete(object sender, AsyncCompletedEventArgs e) {
+
+            if (e.Cancelled || e.Error != null) {
+
+                if (File.Exists(downloadPath)) {
+                    try {
+                        File.Delete(downloadPath);
+                    } catch { }
+                }
+
+                AbortUpdateWithError(e.Error);
+            } else {
+
+                // todo: Verify signature
+
+
+                ExtractUpdate();
+
+            }
+
+            downloadPath = null;
+            download = null;
+        }
+
+        protected void ExtractUpdate() {
+
         }
 
     }

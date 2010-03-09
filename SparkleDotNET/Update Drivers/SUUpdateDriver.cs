@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using KNFoundation.KNKVC;
+using KNFoundation;
 
 namespace SparkleDotNET {
     abstract class SUUpdateDriver {
+
+        public const string SUUpdateDriverFinishedNotification = "SUUpdateDriverFinished";
 
         SUHost host;
         SUUpdater updater;
@@ -23,7 +26,7 @@ namespace SparkleDotNET {
 
         virtual public void AbortUpdate() {
             Finished = true;
-            // Todo: Send UpdateDriverFinished notification
+            KNNotificationCentre.SharedCentre().PostNotificationWithName(SUUpdateDriverFinishedNotification, this);
         }
 
         public bool Finished {

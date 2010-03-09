@@ -10,14 +10,14 @@ namespace SparkleDotNET {
             : base(anUpdater) {
         }
 
-        public override void DidFindValidUpdate() {
+        protected override void DidFindValidUpdate() {
             if (Updater.Delegate != null) {
                 Updater.Delegate.UpdaterDidFindValidUpdate(Updater, updateItem);
             }
             AbortUpdate();
         }
 
-        public override void DidNotFindUpdate() {
+        protected override void DidNotFindUpdate() {
             if (Updater.Delegate != null) {
                 Updater.Delegate.UpdaterDidNotFindUpdate(Updater);
             }

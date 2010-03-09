@@ -12,12 +12,12 @@ namespace SparkleDotNET {
             : base(anUpdater) {
         }
 
-        public override void DidFindValidUpdate() {
+        protected override void DidFindValidUpdate() {
             showsErrors = true; // Only show errors if we find an update
             base.DidFindValidUpdate();
         }
 
-        public override void DidNotFindUpdate() {
+        protected override void DidNotFindUpdate() {
             AbortUpdate();
             // Don't tell the user that no update was found; this was a scheduled update.
         }

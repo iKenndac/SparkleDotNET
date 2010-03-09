@@ -93,6 +93,7 @@
     <AppDesigner Include="Properties\" />
     <Content Include="Resources\Info.plist">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Resources\PropertyList-1.0.dtd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

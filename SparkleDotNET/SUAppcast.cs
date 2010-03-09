@@ -122,7 +122,7 @@ namespace SparkleDotNET {
                             try {
                                 DateTime date = DateTime.Parse(bestNodeForKey.InnerText);
                                 itemDescription.SetValueForKey(date, bestNodeForKey.Name);
-                            } catch (Exception ex) {
+                            } catch {
                                 // Nothing
                             }
                         } else {
@@ -135,7 +135,7 @@ namespace SparkleDotNET {
                         SUAppcastItem item = new SUAppcastItem(itemDescription);
                         appcastItems.Add(item);
 
-                    } catch (Exception ex) {
+                    } catch {
                     }
                 }
 

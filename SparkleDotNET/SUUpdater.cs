@@ -19,6 +19,8 @@ namespace SparkleDotNET {
     
     public class SUUpdater {
 
+        public const string SULastCheckTimeKey = "SULastCheckTime";
+
         static Dictionary<KNBundle, SUUpdater> sharedUpdaters = new Dictionary<KNBundle, SUUpdater>();
 
         /// <summary>
@@ -127,7 +129,7 @@ namespace SparkleDotNET {
                 checkTimer = null;
             }
 
-            // TODO: Set the last check date
+            host.SetObjectForUserDefaultsKey(DateTime.Now, SULastCheckTimeKey);
 
             driver = aDriver;
             driver.CheckForUpdatesAtURLWithHost(ParameterizedFeedURL(), host);

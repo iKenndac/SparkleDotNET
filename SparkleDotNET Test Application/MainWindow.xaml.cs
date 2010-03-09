@@ -27,7 +27,7 @@ namespace SparkleDotNET_Test_Application {
             SUUpdater updater = SUUpdater.SharedUpdater();
             updater.Delegate = this;
             updater.FeedURL = "http://dbprocessor.kennettnet.co.uk/MusicRescueUpdates.xml";
-            updater.CheckForUpdateInformation();
+            updater.CheckForUpdates();
 
         }
 
@@ -44,11 +44,11 @@ namespace SparkleDotNET_Test_Application {
         }
 
         public void UpdaterDidFindValidUpdate(SUUpdater updater, SUAppcastItem item) {
-            MessageBox.Show("Found new update: " + item.VersionString);
+            //MessageBox.Show("Found new update: " + item.VersionString);
         }
 
         public void UpdaterDidNotFindUpdate(SUUpdater updater) {
-            MessageBox.Show("No new updates");
+            //MessageBox.Show("No new updates");
         }
     }
 }
