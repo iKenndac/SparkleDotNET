@@ -9,6 +9,8 @@ using KNFoundation.KNKVC;
 namespace SparkleDotNET {
     class SUUpdatePermissionPromptViewController : KNViewController {
 
+        private double oldHeight;
+
         public SUUpdatePermissionPromptViewController(SUHost host)
             : base(new SUUpdatePermissionPromptView()) {
 
@@ -16,7 +18,11 @@ namespace SparkleDotNET {
                 UpdateHeaderDescription.Text = String.Format("Should {0} automatically check for updates? You can always check for updates manually in the {1} menu.",
                     Host.Name, "Help");
                 IconView.Source = host.Icon;
-                
+                ExtendedInfoContainer.Expanded += ExpandWindow;
+                ExtendedInfoContainer.Collapsed += CollapseWindow;
+                ExtendedInfoContainer.IsExpanded = false;
+                oldHeight = 150;
+
                 string systemInfo = "";
 
                 foreach (Dictionary<string, string> item in SUSystemProfiler.SystemProfileForHost(Host)) {
@@ -28,6 +34,21 @@ namespace SparkleDotNET {
 
                 InfoBox.Text = systemInfo;
 
+        }
+
+        private void CollapseWindow(object sender, EventArgs e) {
+            oldHeight = ExtendedInfoContainer.ActualHeight;
+            View.Height = 28 + ExtendedInfoContainer.Margin.Bottom + ExtendedInfoContainer.Margin.Top;
+            //ExpandWindow(sender, e);
+        }
+
+        private void ExpandWindow(object sender, EventArgs e) {
+            View.Height = oldHeight + ExtendedInfoContainer.Margin.Bottom + ExtendedInfoContainer.Margin.Top;
+        }
+
+        public Expander ExtendedInfoContainer {
+            get;
+            set;
         }
 
         public TextBox InfoBox {
