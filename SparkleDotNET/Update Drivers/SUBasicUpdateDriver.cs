@@ -5,6 +5,7 @@ using System.Text;
 using System.Net;
 using System.IO;
 using System.ComponentModel;
+using KNFoundation.KNKVC;
 
 namespace SparkleDotNET {
     class SUBasicUpdateDriver : SUUpdateDriver, SUAppcastDelegate {
@@ -175,16 +176,53 @@ namespace SparkleDotNET {
 
                 AbortUpdateWithError(e.Error);
             } else {
+                VerifySignature();
+            }
 
-                // todo: Verify signature
+            download = null;
+        }
 
+        protected void VerifySignature() {
+            // Verify in the background, since it can take a while.
+            BackgroundWorker verifySignatureWorker = new BackgroundWorker();
+            verifySignatureWorker.DoWork += VerifySignatureInBackground;
+            verifySignatureWorker.RunWorkerCompleted += VerifySignatureCompleted;
 
-                ExtractUpdate();
+            Dictionary<string, object> verifyArguments = new Dictionary<string, object>();
+            verifyArguments.SetValueForKey(downloadPath, "SUDownloadPath");
+            verifyArguments.SetValueForKey(Host.PublicDSAKey, "SUPublicDSAKey");
+            verifyArguments.SetValueForKey(updateItem.DSASignature, "SUUpdateSignature");
+
+            verifySignatureWorker.RunWorkerAsync(verifyArguments);
+        }
+
+        private void VerifySignatureInBackground(object sender, DoWorkEventArgs e) {
+
+            // This will be called on a background thread.
+
+            try {
+                e.Result = SUDSAVerifier.ValidatePathWithEncodedDSASignatureAndPublicDSAKey(
+                    (string)e.Argument.ValueForKey("SUDownloadPath"),
+                    (string)e.Argument.ValueForKey("SUUpdateSignature"),
+                    (string)e.Argument.ValueForKey("SUPublicDSAKey")
+                );
+            } catch {
+                e.Result = false;
+            }
+        }
+
+        protected void VerifySignatureCompleted(object sender, RunWorkerCompletedEventArgs e) {
+
+            if ((bool)e.Result == true) {
+
+                // Carry on!
+
+            } else {
+
+                AbortUpdateWithError(new Exception(SUSignatureError));
 
             }
 
-            downloadPath = null;
-            download = null;
         }
 
         protected void ExtractUpdate() {

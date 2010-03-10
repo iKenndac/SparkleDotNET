@@ -57,7 +57,7 @@ namespace SparkleDotNET {
         private string feedURL;
         private SUUpdaterDelegate del;
 
-        public SUUpdater(KNBundle aBundle) {
+        private SUUpdater(KNBundle aBundle) {
 
             if (aBundle == null) {
                 aBundle = KNBundle.MainBundle();
@@ -71,7 +71,7 @@ namespace SparkleDotNET {
             host = new SUHost(aBundle);
         }
 
-        public SUUpdater()
+        private SUUpdater()
             : this(KNBundle.MainBundle()) {
         }
 

@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SUAppcast.cs" />
+    <Compile Include="SUDSAVerifier.cs" />
     <Compile Include="SUHost.cs" />
     <Compile Include="SUUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

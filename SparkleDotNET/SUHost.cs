@@ -11,7 +11,7 @@ using KNFoundation.KNKVC;
 namespace SparkleDotNET {
     public class SUHost {
 
-        public const string SUPublicDSAKeyKey = "SUPublicDSAKeyFileKey";
+        public const string SUPublicDSAKeyKey = "SUPublicDSAKey";
         public const string SUPublicDSAKeyFileKey = "SUPublicDSAKeyFile";
 
         KNBundle bundle;

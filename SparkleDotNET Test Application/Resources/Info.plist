@@ -3,9 +3,9 @@
 <plist version="1.0">
   <dict>
     <key>KNShortVersionString</key>
-    <string>4.0.10</string>
+    <string>1.0</string>
 	<key>KNBundleVersion</key>
-    <string>40</string>
+    <string>1.0</string>
 	<key>KNBundleExecutable</key>
     <string>SparkleDotNET Test Application.exe</string>
 	<key>KNBundleIdentifier</key>
@@ -14,7 +14,7 @@
     <string>SparkleDotNET Test Application</string>
 	<key>KNBundleDisplayName</key>
     <string>SparkleDotNET Test Application</string>
-    
-
+    <key>SUPublicDSAKeyFile</key>
+    <string>Update Signing Public Key.sparklePublicKey</string>
   </dict>
 </plist>
