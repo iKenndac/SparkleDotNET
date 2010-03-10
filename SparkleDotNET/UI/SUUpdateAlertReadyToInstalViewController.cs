@@ -6,14 +6,14 @@ using System.Windows.Controls;
 using KNFoundation;
 
 namespace SparkleDotNET {
-    class SUUpdateAlertIndeterminateProgressViewController : KNViewController {
+    class SUUpdateAlertReadyToInstallViewController : KNViewController {
 
 
-        public SUUpdateAlertIndeterminateProgressViewController(UserControl view)
+        public SUUpdateAlertReadyToInstallViewController(UserControl view)
             : base(view) {
         }
 
-        public Button CancelButton {
+        public Button InstallButton {
             protected set;
             get;
         }

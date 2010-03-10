@@ -69,27 +69,31 @@ namespace SparkleDotNET {
         public KNViewController ActionViewController {
             get { return actionViewController; }
             set {
-                this.WillChangeValueForKey("ActionViewController");
 
-                if (actionViewController != null) {
-                    CurrentActionContainer.Children.Remove(actionViewController.View);
+                if (!Object.ReferenceEquals(value, actionViewController)) {
+
+                    this.WillChangeValueForKey("ActionViewController");
+
+                    if (actionViewController != null) {
+                        CurrentActionContainer.Children.Remove(actionViewController.View);
+                    }
+
+                    actionViewController = value;
+
+                    if (value != null) {
+
+                        Canvas.SetTop(value.View, 0);
+                        Canvas.SetLeft(value.View, 0);
+
+                        value.View.Width = CurrentActionContainer.ActualWidth;
+                        value.View.Height = CurrentActionContainer.ActualHeight;
+
+                        CurrentActionContainer.Children.Add(value.View);
+
+                    }
+
+                    this.DidChangeValueForKey("ActionViewController");
                 }
-
-                actionViewController = value;
-
-                if (value != null) {
-
-                    Canvas.SetTop(value.View, 0);
-                    Canvas.SetLeft(value.View, 0);
-                    
-                    value.View.Width = CurrentActionContainer.ActualWidth;
-                    value.View.Height = CurrentActionContainer.ActualHeight;
-
-                    CurrentActionContainer.Children.Add(value.View);
-
-                }
-
-                this.DidChangeValueForKey("ActionViewController");
             }
         }
 

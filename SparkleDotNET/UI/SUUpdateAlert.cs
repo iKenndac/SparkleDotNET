@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Windows;
 using System.Net;
+using System.Runtime.InteropServices;
 using KNFoundation;
 using KNFoundation.KNKVC;
 
@@ -14,6 +15,7 @@ namespace SparkleDotNET {
 
         void UpdateAlertMadeChoice(SUUpdateAlert alert, SUUpdateAlertChoice choice);
         void CancelDownload(SUUpdateAlert alert);
+        void InstallUpdate(SUUpdateAlert alert);
     }
 
     public enum SUUpdateAlertChoice {
@@ -24,6 +26,24 @@ namespace SparkleDotNET {
 
     public class SUUpdateAlert : KNWindowController {
 
+        [DllImport("user32.dll")]
+        static extern IntPtr GetForegroundWindow();
+
+        [DllImportAttribute("user32.dll")]
+        static extern int FindWindow(String ClassName, String WindowName);
+
+        [DllImport("user32.dll")]
+        static extern Int32 FlashWindowEx(ref FLASHWINFO pwfi);
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct FLASHWINFO {
+            public UInt32 cbSize;
+            public IntPtr hwnd;
+            public Int32 dwFlags;
+            public UInt32 uCount;
+            public Int32 dwTimeout;
+        }
+
         public static SUUpdateAlert CreateAlert(SUHost host, SUAppcastItem item) {
             SUUpdateAlertWindow window = new SUUpdateAlertWindow();
             SUUpdateAlert alert = new SUUpdateAlert(window, host, item);
@@ -33,21 +53,30 @@ namespace SparkleDotNET {
         private SUUpdateAlertActionButtonsViewController buttons;
         private SUUpdateAlertWindowViewController mainViewController;
         private SUUpdateAlertDownloadProgressViewController downloadingViewController;
+        private SUUpdateAlertIndeterminateProgressViewController indeterminateViewController;
+        private SUUpdateAlertReadyToInstallViewController readyToInstallViewController;
         private SUUpdateAlertDegate del;
 
         public SUUpdateAlert(Window window, SUHost host, SUAppcastItem item)
             : base(window) {
 
+            Window.TaskbarItemInfo = new System.Windows.Shell.TaskbarItemInfo();
+
             mainViewController = new SUUpdateAlertWindowViewController(new SUUpdateAlertWindowView());
             ViewController = mainViewController;
 
             buttons = new SUUpdateAlertActionButtonsViewController(new SUUpdateAlertActionButtonsView());
-            buttons.InstallButton.Click += InstallButtonClicked;
+            buttons.InstallButton.Click += DownloadButtonClicked;
             buttons.RemindLaterButton.Click += RemindLaterButtonClicked;
             buttons.SkipVersionButton.Click += SkipVersionButtonClicked;
 
             downloadingViewController = new SUUpdateAlertDownloadProgressViewController(new SUUpdateAlertDownloadProgressView());
             downloadingViewController.CancelButton.Click += CancelDownloadClicked;
+
+            indeterminateViewController = new SUUpdateAlertIndeterminateProgressViewController(new SUUpdateAlertIndeterminateProgressView());
+            readyToInstallViewController = new SUUpdateAlertReadyToInstallViewController(new SUUpdateAlertReadyToInstallView());
+
+            readyToInstallViewController.InstallButton.Click += InstallButtonClicked;
 
             mainViewController.ActionViewController = buttons;
             mainViewController.Host = host;
@@ -65,6 +94,42 @@ namespace SparkleDotNET {
 
         public void SwitchToDownloadAction() {
             mainViewController.ActionViewController = downloadingViewController;
+            Window.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal;
+        }
+
+        public void SwitchToIndeterminateAction(string statusText) {
+            indeterminateViewController.ProgressLabel.Text = statusText;
+            mainViewController.ActionViewController = indeterminateViewController;
+
+            Window.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Indeterminate;
+
+        }
+
+        public void SwitchToReadyToInstall() {
+            mainViewController.ActionViewController = readyToInstallViewController;
+            Window.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal;
+            Window.TaskbarItemInfo.ProgressValue = 1.0;
+
+            IntPtr handle = (IntPtr)FindWindow(null, Window.Title);
+
+            if (handle != IntPtr.Zero) {
+
+                if (handle != GetForegroundWindow()) {
+
+                    // Flash if we're not frontmost
+
+                    FLASHWINFO info = new FLASHWINFO();
+                    info.hwnd = handle;
+                    info.dwFlags = 12 | 3;
+                    info.uCount = UInt32.MaxValue;
+                    info.cbSize = Convert.ToUInt32(Marshal.SizeOf(typeof(FLASHWINFO)));
+
+                    FlashWindowEx(ref info);
+
+                } 
+            }
+
+            
         }
 
         public void UpdateDownloadProgressWithEvent(DownloadProgressChangedEventArgs e) {
@@ -72,6 +137,8 @@ namespace SparkleDotNET {
             downloadingViewController.ProgressLabel.Text = String.Format("Downloading {0} of {1}...",
                 HumanReadableFileSize(e.BytesReceived), 
                 HumanReadableFileSize(e.TotalBytesToReceive));
+
+            Window.TaskbarItemInfo.ProgressValue = ((double)e.ProgressPercentage) / 100.0;
         
         }
 
@@ -84,7 +151,7 @@ namespace SparkleDotNET {
             }
         }
 
-        private void InstallButtonClicked(object sender, EventArgs e) {
+        private void DownloadButtonClicked(object sender, EventArgs e) {
             MakeChoice(SUUpdateAlertChoice.SUInstallUpdateChoice);
         }
 
@@ -94,6 +161,13 @@ namespace SparkleDotNET {
 
         private void SkipVersionButtonClicked(object sender, EventArgs e) {
             MakeChoice(SUUpdateAlertChoice.SUSkipThisVersionChoice);
+        }
+
+        private void InstallButtonClicked(object sender, EventArgs e) {
+            readyToInstallViewController.InstallButton.IsEnabled = false;
+            if (Delegate != null) {
+                Delegate.InstallUpdate(this);
+            }
         }
 
         private void MakeChoice(SUUpdateAlertChoice choice) {

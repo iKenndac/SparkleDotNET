@@ -56,6 +56,14 @@
     <Compile Include="SUUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SUAppcastItem.cs" />
+    <Compile Include="UI\SUUpdateAlertReadyToInstalViewController.cs" />
+    <Compile Include="UI\SUUpdateAlertReadyToInstallView.xaml.cs">
+      <DependentUpon>SUUpdateAlertReadyToInstallView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SUUpdateAlertIndeterminateProgressViewController.cs" />
+    <Compile Include="UI\SUUpdateAlertIndeterminateProgressView.xaml.cs">
+      <DependentUpon>SUUpdateAlertIndeterminateProgressView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\SUUpdateAlert.cs" />
     <Compile Include="UI\SUUpdateAlertActionButtonsView.xaml.cs">
       <DependentUpon>SUUpdateAlertActionButtonsView.xaml</DependentUpon>
@@ -82,6 +90,14 @@
     <Compile Include="Version Comparison\SUVersionComparison.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\SUUpdateAlertReadyToInstallView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\SUUpdateAlertIndeterminateProgressView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\SUUpdateAlertActionButtonsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

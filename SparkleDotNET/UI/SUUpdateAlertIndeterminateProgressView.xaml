@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="SparkleDotNET.SUUpdateAlertIndeterminateProgressView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="386">
+    <Grid>
+        <ProgressBar Margin="0,0,116,5" Name="ProgressBar" Height="23" VerticalAlignment="Bottom" Orientation="Horizontal" IsIndeterminate="True" />
+        <Button Content="Cancel" HorizontalAlignment="Right" Name="CancelButton" Width="110
+                " IsCancel="True" Height="23" VerticalAlignment="Bottom" Margin="0,0,0,5" IsEnabled="False" />
+        <TextBlock Margin="0,0,0,25" Name="ProgressLabel" Text="Verifying..." Height="22" VerticalAlignment="Bottom" />
+    </Grid>
+</UserControl>

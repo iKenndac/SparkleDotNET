@@ -6,10 +6,10 @@ using System.Windows.Controls;
 using KNFoundation;
 
 namespace SparkleDotNET {
-    class SUUpdateAlertIndeterminateProgressViewController : KNViewController {
+    class SUUpdateAlertDownloadProgressViewController : KNViewController {
 
 
-        public SUUpdateAlertIndeterminateProgressViewController(UserControl view)
+        public SUUpdateAlertDownloadProgressViewController(UserControl view)
             : base(view) {
         }
 

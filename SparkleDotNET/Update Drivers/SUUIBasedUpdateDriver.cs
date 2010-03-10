@@ -41,8 +41,29 @@ namespace SparkleDotNET {
             if (alert != null) {
                 alert.UpdateDownloadProgressWithEvent(e);
             }
-        } 
+        }
 
+        protected override void VerifySignature() {
+            if (alert != null) {
+                alert.SwitchToIndeterminateAction("Verifying...");
+            }
+            base.VerifySignature();
+        }
+
+        protected override void ExtractUpdate() {
+            if (alert != null) {
+                alert.SwitchToIndeterminateAction("Extracting...");
+            }
+            base.ExtractUpdate();
+        }
+
+        protected override void ExtractUpdateCompleted() {
+            base.ExtractUpdateCompleted();
+
+            if (alert != null) {
+                alert.SwitchToReadyToInstall() ;
+            }
+        }
 
         public void UpdateAlertMadeChoice(SUUpdateAlert alert, SUUpdateAlertChoice choice) {
 
@@ -74,6 +95,10 @@ namespace SparkleDotNET {
                     AbortUpdate();
                     break;
             }
+        }
+
+        public void InstallUpdate(SUUpdateAlert alert) {
+
         }
     }
 }

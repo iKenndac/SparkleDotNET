@@ -182,7 +182,7 @@ namespace SparkleDotNET {
             download = null;
         }
 
-        protected void VerifySignature() {
+        protected virtual void VerifySignature() {
             // Verify in the background, since it can take a while.
             BackgroundWorker verifySignatureWorker = new BackgroundWorker();
             verifySignatureWorker.DoWork += VerifySignatureInBackground;
@@ -216,6 +216,7 @@ namespace SparkleDotNET {
             if ((bool)e.Result == true) {
 
                 // Carry on!
+                ExtractUpdate();
 
             } else {
 
@@ -225,7 +226,11 @@ namespace SparkleDotNET {
 
         }
 
-        protected void ExtractUpdate() {
+        protected virtual void ExtractUpdate() {
+            ExtractUpdateCompleted();
+        }
+
+        protected virtual void ExtractUpdateCompleted() {
 
         }
 
