@@ -11,9 +11,6 @@ using KNFoundation.KNKVC;
 namespace SparkleDotNET {
     public class SUHost {
 
-        public const string SUPublicDSAKeyKey = "SUPublicDSAKey";
-        public const string SUPublicDSAKeyFileKey = "SUPublicDSAKeyFile";
-
         KNBundle bundle;
         KNUserDefaults defaults;
 
@@ -59,15 +56,67 @@ namespace SparkleDotNET {
             }
         }
 
+        public string FeedURL {
+            get {
+
+                object url = ObjectForUserDefaultsKey(SUConstants.SUFeedURLKey);
+
+                if (url != null) {
+                    return (string)url;
+                }
+
+                return (string)bundle.InfoDictionary.ValueForKey(SUConstants.SUFeedURLKey);
+            }
+
+            set {
+                SetObjectForUserDefaultsKey(value, SUConstants.SUFeedURLKey);
+            }
+        }
+
+        public double UpdateCheckInterval {
+            get {
+                object value = ObjectForUserDefaultsKey(SUConstants.SUScheduledCheckIntervalKey);
+
+                if (value != null) {
+                    return (double)value;
+                }
+
+                value = bundle.InfoDictionary.ValueForKey(SUConstants.SUScheduledCheckIntervalKey);
+
+                if (value != null) {
+                    return (double)value;
+                }
+
+                return SUConstants.SU_DEFAULT_CHECK_INTERVAL;
+            }
+            set {
+                SetObjectForUserDefaultsKey(value, SUConstants.SUScheduledCheckIntervalKey);
+            }
+        }
+
+        public DateTime LastUpdateCheckDate {
+            get {
+                object value = ObjectForUserDefaultsKey(SUConstants.SULastCheckTimeKey);
+                if (value != null) {
+                    return (DateTime)value;
+                }
+
+                return DateTime.MinValue;
+            }
+            set {
+                SetObjectForUserDefaultsKey(value, SUConstants.SULastCheckTimeKey);
+            }
+        }
+
 
         public string PublicDSAKey {
             get {
-                string key = (string)bundle.InfoDictionary.ValueForKey(SUPublicDSAKeyKey);
+                string key = (string)bundle.InfoDictionary.ValueForKey(SUConstants.SUPublicDSAKeyKey);
                 if (!string.IsNullOrWhiteSpace(key)) {
                     return key;
                 }
 
-                string keyFile = (string)bundle.InfoDictionary.ValueForKey(SUPublicDSAKeyFileKey);
+                string keyFile = (string)bundle.InfoDictionary.ValueForKey(SUConstants.SUPublicDSAKeyFileKey);
                 if (!string.IsNullOrWhiteSpace(keyFile)) {
                     string keyFilePath = (string)bundle.PathForResourceOfType(keyFile, null);
                     if (!string.IsNullOrWhiteSpace(keyFilePath) && File.Exists(keyFilePath)) {

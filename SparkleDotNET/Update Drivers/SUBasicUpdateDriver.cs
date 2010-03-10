@@ -9,11 +9,7 @@ using KNFoundation.KNKVC;
 
 namespace SparkleDotNET {
     class SUBasicUpdateDriver : SUUpdateDriver, SUAppcastDelegate {
-
-        public const string SUNoUpdateError = "com.Sparkle.NoUpdate";
-        public const string SUSignatureError = "com.Sparkle.SignatureError";
-        public const string SUSkippedVersionKey = "SUSkippedVersion";
-
+        
         protected SUAppcastItem updateItem;
         private WebClient download;
         private string downloadPath;
@@ -61,7 +57,7 @@ namespace SparkleDotNET {
 
         public bool ItemContainsSkippedVersion(SUAppcastItem item) {
 
-            string skippedVersion = (string)Host.ObjectForUserDefaultsKey(SUSkippedVersionKey);
+            string skippedVersion = (string)Host.ObjectForUserDefaultsKey(SUConstants.SUSkippedVersionKey);
             if (!String.IsNullOrWhiteSpace(skippedVersion)) {
                 return VersionComparator().CompareVersionToVersion(item.VersionString, skippedVersion) <= 0;
             } else {
@@ -125,7 +121,7 @@ namespace SparkleDotNET {
             if (Updater.Delegate != null) {
                 Updater.Delegate.UpdaterDidNotFindUpdate(Updater);
             }
-            AbortUpdateWithError(new Exception(SUNoUpdateError));
+            AbortUpdateWithError(new Exception(SUConstants.SUNoUpdateError));
         }
 
         protected virtual void AbortUpdateWithError(Exception error) {
@@ -220,7 +216,7 @@ namespace SparkleDotNET {
 
             } else {
 
-                AbortUpdateWithError(new Exception(SUSignatureError));
+                AbortUpdateWithError(new Exception(SUConstants.SUSignatureError));
 
             }
 

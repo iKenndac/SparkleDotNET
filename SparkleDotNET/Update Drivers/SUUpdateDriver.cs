@@ -8,8 +8,6 @@ using KNFoundation;
 namespace SparkleDotNET {
     abstract class SUUpdateDriver {
 
-        public const string SUUpdateDriverFinishedNotification = "SUUpdateDriverFinished";
-
         SUHost host;
         SUUpdater updater;
         string appcastURL;
@@ -26,7 +24,7 @@ namespace SparkleDotNET {
 
         virtual public void AbortUpdate() {
             Finished = true;
-            KNNotificationCentre.SharedCentre().PostNotificationWithName(SUUpdateDriverFinishedNotification, this);
+            KNNotificationCentre.SharedCentre().PostNotificationWithName(SUConstants.SUUpdateDriverFinishedNotification, this);
         }
 
         public bool Finished {

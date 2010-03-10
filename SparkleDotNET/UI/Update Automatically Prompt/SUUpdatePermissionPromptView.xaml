@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="SparkleDotNET.SUUpdatePermissionPromptView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="280" d:DesignWidth="450" Background="#00000000">
+    <Grid Background="#00000000">
+        <Image Height="64" HorizontalAlignment="Left" Margin="10,10,0,0" Name="IconView" Stretch="Fill" VerticalAlignment="Top" Width="64" />
+        <TextBlock FontSize="13" FontWeight="Bold" Height="23" Margin="90,10,12,0" Name="UpdateHeaderLabel" Text="Check for updates automatically?" VerticalAlignment="Top" />
+        <TextBlock Height="66" Margin="90,39,12,0" Name="UpdateHeaderDescription" Text="Should {0} automatically check for updates? You can always check for updates manually in the {1} menu." TextWrapping="Wrap" VerticalAlignment="Top" />
+        <CheckBox Content="Include anonymous system profile" Height="16" HorizontalAlignment="Left" Margin="90,111,0,0" Name="SendProfileCheck" VerticalAlignment="Top" Width="303" IsChecked="True" />
+        <Button Content="Check Automatically" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="CheckAutomaticallyButton" VerticalAlignment="Bottom" Width="135" IsDefault="True" />
+        <Button Content="Don't Check" Height="23" HorizontalAlignment="Right" Margin="0,0,153,12" Name="DontCheckButton" VerticalAlignment="Bottom" Width="93" IsCancel="True" />
+        <TextBlock Height="33" Margin="107,133,12,0" Name="textBlock1" Text="This is used to help us plan future development work. This is the information that would be sent:" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <TextBox Margin="107,172,12,41" Name="InfoBox" SelectionBrush="#003399FF" TextWrapping="Wrap" IsEnabled="True" VerticalScrollBarVisibility="Auto" />
+    </Grid>
+</UserControl>

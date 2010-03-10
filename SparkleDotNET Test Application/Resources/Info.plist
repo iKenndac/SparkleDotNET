@@ -16,5 +16,7 @@
     <string>SparkleDotNET Test Application</string>
     <key>SUPublicDSAKeyFile</key>
     <string>Update Signing Public Key.sparklePublicKey</string>
+    <key>SUFeedURL</key>
+    <string>http://www.kennettnet.co.uk/files/SparkleDotNETTestAppUpdates.xml</string>
   </dict>
 </plist>

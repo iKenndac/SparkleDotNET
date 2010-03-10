@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
-using System.Timers;
+using System.Windows.Threading;
+using System.Web;
 using KNFoundation.KNKVC;
 using KNFoundation;
 
@@ -17,9 +19,7 @@ namespace SparkleDotNET {
         void UpdaterDidNotFindUpdate(SUUpdater updater);
     }
     
-    public class SUUpdater {
-
-        public const string SULastCheckTimeKey = "SULastCheckTime";
+    public class SUUpdater : SUUpdatePermissionPromptWindowControllerDelegate  {
 
         static Dictionary<KNBundle, SUUpdater> sharedUpdaters = new Dictionary<KNBundle, SUUpdater>();
 
@@ -52,9 +52,8 @@ namespace SparkleDotNET {
         }
 
         private SUHost host;
-        private Timer checkTimer;
+        private DispatcherTimer checkTimer;
         private SUUpdateDriver driver;
-        private string feedURL;
         private SUUpdaterDelegate del;
 
         private SUUpdater(KNBundle aBundle) {
@@ -69,6 +68,9 @@ namespace SparkleDotNET {
 
             sharedUpdaters.Add(aBundle, this);
             host = new SUHost(aBundle);
+
+            OfferToAutomaticallyUpdateIfAppropriate();
+            ScheduleNextUpdateCheck();
         }
 
         private SUUpdater()
@@ -99,10 +101,17 @@ namespace SparkleDotNET {
         }
 
         public string FeedURL {
-            get { return feedURL; }
+            get {
+
+                string url = host.FeedURL;
+                if (String.IsNullOrEmpty(url)) {
+                    throw new Exception(SUConstants.SUNoFeedURLError);
+                }
+                return url;
+            }
             set {
                 this.WillChangeValueForKey("FeedURL");
-                feedURL = value;
+                host.FeedURL = value;
                 this.DidChangeValueForKey("FeedURL");
             }
         }
@@ -116,7 +125,151 @@ namespace SparkleDotNET {
             }
         }
 
+        public bool AutomaticallyChecksForUpdates {
+            get {
+                if (UpdateCheckInterval == 0) {
+                    return false;
+                }
+
+                object value = host.ObjectForUserDefaultsKey(SUConstants.SUEnableAutomaticChecksKey);
+                if (value != null) {
+                    return (bool)value;
+                } else {
+                    return false;
+                }
+            }
+            set {
+                this.WillChangeValueForKey("AutomaticallyChecksForUpdates");
+                host.SetObjectForUserDefaultsKey(value, SUConstants.SUEnableAutomaticChecksKey);
+
+                if (value && UpdateCheckInterval == 0) {
+                    UpdateCheckInterval = SUConstants.SU_DEFAULT_CHECK_INTERVAL;
+                }
+
+                ResetUpdateCycle();
+
+                this.DidChangeValueForKey("AutomaticallyChecksForUpdates");
+            }
+        }
+
+        public double UpdateCheckInterval {
+            get {
+                return host.UpdateCheckInterval;
+            }
+            set {
+                this.WillChangeValueForKey("UpdateCheckInterval");
+                if (value == 0) {
+                    AutomaticallyChecksForUpdates = false;
+                }
+                host.UpdateCheckInterval = value;
+                this.DidChangeValueForKey("UpdateCheckInterval");
+
+                ResetUpdateCycle();
+            }
+        }
+
+        public DateTime LastUpdateCheckDate {
+            get {
+                return host.LastUpdateCheckDate;
+            }
+
+            set {
+                this.WillChangeValueForKey("LastUpdateCheckDate");
+                host.LastUpdateCheckDate = value;
+                this.DidChangeValueForKey("LastUpdateCheckDate");
+            }
+        }
+
+        public bool SendsSystemProfile {
+            get {
+                object value = host.ObjectForUserDefaultsKey(SUConstants.SUSendProfileInfoKey);
+                if (value != null) {
+                    return (bool)value;
+                } else {
+                    return false;
+                }
+            }
+            set {
+                this.WillChangeValueForKey("SendsSystemProfile");
+                host.SetObjectForUserDefaultsKey(value, SUConstants.SUSendProfileInfoKey); ;
+                this.DidChangeValueForKey("SendsSystemProfile");
+            }
+        }
+
         // -------------------
+
+        private void OfferToAutomaticallyUpdateIfAppropriate() {
+
+            bool shouldPrompt = false;
+
+            if (host.ObjectForUserDefaultsKey(SUConstants.SUEnableAutomaticChecksKey) == null) {
+                
+                object val = host.ObjectForUserDefaultsKey(SUConstants.SUHasLaunchedBeforeKey);
+                if (val == null || (bool)val == false) {
+                    host.SetObjectForUserDefaultsKey(true, SUConstants.SUHasLaunchedBeforeKey);
+                } else {
+                    shouldPrompt = true;
+                }
+            }
+
+            if (shouldPrompt) {
+
+                SUUpdatePermissionPromptWindowController controller = new SUUpdatePermissionPromptWindowController(host);
+                controller.Delegate = this;
+                controller.ShowWindow();
+
+            }
+        }
+
+        public void PermissionPromptDidComplete(bool shouldCheckForUpdates, bool shouldSendSystemInfo) {
+
+            AutomaticallyChecksForUpdates = shouldCheckForUpdates;
+            SendsSystemProfile = shouldSendSystemInfo;
+        }
+
+        private void ResetUpdateCycle() {
+            ScheduleNextUpdateCheck();
+        }
+
+        private void ScheduleNextUpdateCheck() {
+
+            if (checkTimer != null) {
+                checkTimer.IsEnabled = false;
+                checkTimer.Stop();
+                checkTimer = null;
+            }
+
+            if (!AutomaticallyChecksForUpdates) {
+                return;
+            }
+
+            DateTime lastCheckDate = LastUpdateCheckDate;
+            double timeSinceLastUpdate = (DateTime.Now - lastCheckDate).TotalSeconds;
+            double updateCheckInterval = UpdateCheckInterval;
+            double delayUntilCheck = 0.0;
+
+            if (updateCheckInterval < SUConstants.SU_MIN_CHECK_INTERVAL) {
+                updateCheckInterval = SUConstants.SU_MIN_CHECK_INTERVAL;
+            }
+
+            if (timeSinceLastUpdate < updateCheckInterval) {
+                delayUntilCheck = updateCheckInterval - timeSinceLastUpdate;
+            }
+
+            if (delayUntilCheck <= 0) {
+                CheckForUpdatesInBackground();
+            } else {
+
+                checkTimer = new DispatcherTimer(TimeSpan.FromSeconds(delayUntilCheck), DispatcherPriority.Normal, CheckTimerDidFire, Dispatcher.CurrentDispatcher);
+                checkTimer.IsEnabled = true;
+                checkTimer.Start();
+            }
+        }
+
+        private void CheckTimerDidFire(object sender, EventArgs e) {
+                       
+            CheckForUpdatesInBackground();
+        }
 
         private void CheckForUpdatesWithDriver(SUUpdateDriver aDriver) {
 
@@ -125,22 +278,70 @@ namespace SparkleDotNET {
             }
 
             if (checkTimer != null) {
-                checkTimer.Enabled = false;
+                checkTimer.IsEnabled = false;
+                checkTimer.Stop();
                 checkTimer = null;
             }
 
-            host.SetObjectForUserDefaultsKey(DateTime.Now, SULastCheckTimeKey);
-
+            host.LastUpdateCheckDate = DateTime.Now;
+            
             driver = aDriver;
             driver.CheckForUpdatesAtURLWithHost(ParameterizedFeedURL(), host);
 
+            ResetUpdateCycle();
         }
 
         
         private string ParameterizedFeedURL() {
-            return FeedURL;
-            //TODO: Allow profile sending
+
+           // Only send parameters weekly to help normalise data
+
+            if (!SendsSystemProfile || !LastUpdateWasMoreThanAWeekAgo()) {
+                return FeedURL;
+            } else {
+
+                ArrayList parameterStrings = new ArrayList();
+
+                foreach (Dictionary<string, string> item in SUSystemProfiler.SystemProfileForHost(host)) {
+
+                    parameterStrings.Add(String.Format("{0}={1}",
+                        Uri.EscapeUriString((string)item.ValueForKey(SUConstants.SUProfileItemKeyKey)),
+                        Uri.EscapeUriString((string)item.ValueForKey(SUConstants.SUProfileItemValueKey))));
+                }
+
+                if (parameterStrings.Count > 0) {
+
+                    string url = FeedURL;
+                    string divider = "?";
+
+                    if (url.Contains("?")) {
+                        // Just in case the url already contains a query
+                        divider = "&";
+                    }
+
+                    foreach (string item in parameterStrings) {
+                        url = string.Concat(url, divider, item);
+                        divider = "&";
+                    }
+
+                    System.Windows.MessageBox.Show(url);
+
+                    return url;
+
+                } else {
+                    return FeedURL;
+                }
+            }
         }
 
+        private bool LastUpdateWasMoreThanAWeekAgo() {
+
+            DateTime lastUpdate = LastUpdateCheckDate;
+            const double oneWeek = 60 * 60 * 24 * 7;
+            return ((DateTime.Now - lastUpdate).TotalSeconds >= oneWeek);
+        }
+
+
+        
     }
 }

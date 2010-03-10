@@ -67,7 +67,7 @@ namespace SparkleDotNET {
 
         public void UpdateAlertMadeChoice(SUUpdateAlert alert, SUUpdateAlertChoice choice) {
 
-            Host.SetObjectForUserDefaultsKey(null, SUSkippedVersionKey);
+            Host.SetObjectForUserDefaultsKey(null, SUConstants.SUSkippedVersionKey);
 
             switch (choice) {
                 case SUUpdateAlertChoice.SUInstallUpdateChoice:
@@ -80,7 +80,7 @@ namespace SparkleDotNET {
 
                 case SUUpdateAlertChoice.SUSkipThisVersionChoice:
 
-                    Host.SetObjectForUserDefaultsKey(updateItem.VersionString, SUSkippedVersionKey);
+                    Host.SetObjectForUserDefaultsKey(updateItem.VersionString, SUConstants.SUSkippedVersionKey);
                     alert.Delegate = null;
                     alert.Window.Close();
 

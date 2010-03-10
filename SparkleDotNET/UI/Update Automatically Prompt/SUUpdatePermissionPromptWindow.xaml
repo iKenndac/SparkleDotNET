@@ -1,0 +1,8 @@
+﻿<Window x:Class="SparkleDotNET.SUUpdatePermissionPromptWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Check for updates automatically?" Height="320" Width="472" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" MinWidth="472" MinHeight="320" Background="#FFF0F0F0">
+    <Grid Background="#FFF0F0F0">
+        
+    </Grid>
+</Window>

@@ -20,38 +20,16 @@ namespace SparkleDotNET_Test_Application {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, SUUpdaterDelegate {
+    public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+
+            SUUpdater updater = SUUpdater.SharedUpdater();
         }
 
         private void button1_Click(object sender, RoutedEventArgs e) {
 
-            SUUpdater updater = SUUpdater.SharedUpdater();
-            updater.Delegate = this;
-            updater.FeedURL = "http://www.kennettnet.co.uk/files/SparkleDotNETTestAppUpdates.xml";
-            updater.CheckForUpdates();
-
-        }
-
-        public SUVersionComparison VersionComparatorForUpdater(SUUpdater updater) {
-            return null;
-        }
-
-        public SUAppcastItem BestValidUpdateInAppcastForUpdater(SUAppcast appcast, SUUpdater updater) {
-            return null;
-        }
-
-        public void UpdaterDidFinishLoadingAppcast(SUUpdater updater, SUAppcast appcast) {
-            
-        }
-
-        public void UpdaterDidFindValidUpdate(SUUpdater updater, SUAppcastItem item) {
-            //MessageBox.Show("Found new update: " + item.VersionString);
-        }
-
-        public void UpdaterDidNotFindUpdate(SUUpdater updater) {
-            //MessageBox.Show("No new updates");
+            SUUpdater.SharedUpdater().CheckForUpdates();
         }
 
 

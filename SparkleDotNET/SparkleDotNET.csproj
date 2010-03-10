@@ -50,36 +50,46 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SUConstants.cs" />
     <Compile Include="SUAppcast.cs" />
     <Compile Include="SUDSAVerifier.cs" />
     <Compile Include="SUHost.cs" />
+    <Compile Include="SUSystemProfiler.cs" />
     <Compile Include="SUUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SUAppcastItem.cs" />
-    <Compile Include="UI\SUUpdateAlertReadyToInstalViewController.cs" />
-    <Compile Include="UI\SUUpdateAlertReadyToInstallView.xaml.cs">
+    <Compile Include="UI\Update Alert\SUUpdateAlertReadyToInstalViewController.cs" />
+    <Compile Include="UI\Update Alert\SUUpdateAlertReadyToInstallView.xaml.cs">
       <DependentUpon>SUUpdateAlertReadyToInstallView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\SUUpdateAlertIndeterminateProgressViewController.cs" />
-    <Compile Include="UI\SUUpdateAlertIndeterminateProgressView.xaml.cs">
+    <Compile Include="UI\Update Alert\SUUpdateAlertIndeterminateProgressViewController.cs" />
+    <Compile Include="UI\Update Alert\SUUpdateAlertIndeterminateProgressView.xaml.cs">
       <DependentUpon>SUUpdateAlertIndeterminateProgressView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\SUUpdateAlert.cs" />
-    <Compile Include="UI\SUUpdateAlertActionButtonsView.xaml.cs">
+    <Compile Include="UI\Update Alert\SUUpdateAlert.cs" />
+    <Compile Include="UI\Update Alert\SUUpdateAlertActionButtonsView.xaml.cs">
       <DependentUpon>SUUpdateAlertActionButtonsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\SUUpdateAlertActionButtonsViewController.cs" />
-    <Compile Include="UI\SUUpdateAlertDownloadProgressView.xaml.cs">
+    <Compile Include="UI\Update Alert\SUUpdateAlertActionButtonsViewController.cs" />
+    <Compile Include="UI\Update Alert\SUUpdateAlertDownloadProgressView.xaml.cs">
       <DependentUpon>SUUpdateAlertDownloadProgressView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\SUUpdateAlertDownloadProgressViewController.cs" />
-    <Compile Include="UI\SUUpdateAlertWindow.xaml.cs">
+    <Compile Include="UI\Update Alert\SUUpdateAlertDownloadProgressViewController.cs" />
+    <Compile Include="UI\Update Alert\SUUpdateAlertWindow.xaml.cs">
       <DependentUpon>SUUpdateAlertWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\SUUpdateAlertWindowViewController.cs" />
-    <Compile Include="UI\SUUpdateAlertWindowView.xaml.cs">
+    <Compile Include="UI\Update Alert\SUUpdateAlertWindowViewController.cs" />
+    <Compile Include="UI\Update Alert\SUUpdateAlertWindowView.xaml.cs">
       <DependentUpon>SUUpdateAlertWindowView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Update Automatically Prompt\SUUpdatePermissionPromptViewController.cs" />
+    <Compile Include="UI\Update Automatically Prompt\SUUpdatePermissionPromptView.xaml.cs">
+      <DependentUpon>SUUpdatePermissionPromptView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Update Automatically Prompt\SUUpdatePermissionPromptWindow.xaml.cs">
+      <DependentUpon>SUUpdatePermissionPromptWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Update Automatically Prompt\SUUpdatePermissionPromptWindowController.cs" />
     <Compile Include="Update Drivers\SUBasicUpdateDriver.cs" />
     <Compile Include="Update Drivers\SUProbingUpdateDriver.cs" />
     <Compile Include="Update Drivers\SUScheduledUpdateDriver.cs" />
@@ -90,31 +100,40 @@
     <Compile Include="Version Comparison\SUVersionComparison.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UI\SUUpdateAlertReadyToInstallView.xaml">
+    <Page Include="UI\Update Alert\SUUpdateAlertReadyToInstallView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\SUUpdateAlertIndeterminateProgressView.xaml">
+    <Page Include="UI\Update Alert\SUUpdateAlertIndeterminateProgressView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\SUUpdateAlertActionButtonsView.xaml">
+    <Page Include="UI\Update Alert\SUUpdateAlertActionButtonsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\SUUpdateAlertDownloadProgressView.xaml">
+    <Page Include="UI\Update Alert\SUUpdateAlertDownloadProgressView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\SUUpdateAlertWindow.xaml">
+    <Page Include="UI\Update Alert\SUUpdateAlertWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\SUUpdateAlertWindowView.xaml">
+    <Page Include="UI\Update Alert\SUUpdateAlertWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Update Automatically Prompt\SUUpdatePermissionPromptView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Update Automatically Prompt\SUUpdatePermissionPromptWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
