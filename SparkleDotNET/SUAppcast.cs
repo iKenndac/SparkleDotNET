@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections;
 using System.Net;
 using System.Xml;
+using System.Globalization;
 using KNFoundation.KNKVC;
 
 namespace SparkleDotNET {
@@ -84,7 +85,7 @@ namespace SparkleDotNET {
 
                 foreach (XmlNode node in xmlItems) {
 
-                    Dictionary<string, ArrayList> nodesDict = new Dictionary<string,ArrayList>();
+                    Dictionary<string, ArrayList> nodesDict = new Dictionary<string, ArrayList>();
                     Dictionary<string, Object> itemDescription = new Dictionary<string, object>();
 
                     // Create a dictionary of nodes for each name present,
@@ -156,7 +157,34 @@ namespace SparkleDotNET {
                 return (XmlNode)nodes[0];
             } else {
 
-                // todo: Find best node based on xml:lang
+                CultureInfo currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
+
+                foreach (XmlNode node in nodes) {
+                    foreach (XmlAttribute attrib in node.Attributes) {
+                        if (attrib.Name.Equals("xml:lang")) {
+
+                            string lang = attrib.InnerText;
+                            if (lang.Equals(currentCulture.Name, StringComparison.CurrentCultureIgnoreCase) ||
+                                lang.Equals(currentCulture.EnglishName, StringComparison.CurrentCultureIgnoreCase) ||
+                                lang.Equals(currentCulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)) {
+                                return node;
+                            }
+
+                            if (currentCulture.Parent != null) {
+
+                                // Search parent, so for example en-GB or en-US will match en, English, etc.
+                                // This algorithm isn't smart, so put your specific languages (en-GB) before
+                                // general languages (en).
+
+                                if (lang.Equals(currentCulture.Parent.Name, StringComparison.CurrentCultureIgnoreCase) ||
+                                    lang.Equals(currentCulture.Parent.EnglishName, StringComparison.CurrentCultureIgnoreCase) ||
+                                    lang.Equals(currentCulture.Parent.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)) {
+                                    return node;
+                                }
+                            }
+                        }
+                    }
+                }
 
                 return (XmlNode)nodes[0];
             }

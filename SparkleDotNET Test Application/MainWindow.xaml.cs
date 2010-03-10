@@ -39,25 +39,19 @@ namespace SparkleDotNET_Test_Application {
             string privateKeyFile = Convert.ToBase64String(provider.ExportCspBlob(true));
             string publicKeyFile = Convert.ToBase64String(provider.ExportCspBlob(false));
 
+            string privateFileName, publicFileName;
+
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "Sparkle Private Key File|*.sparklePrivateKey";
             dialog.Title = "Please choose a location for your Private Key";
             dialog.FileName = "Update Signing Private Key";
-            dialog.ShowDialog();
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) {
+                return;
+            }
 
-            if (!String.IsNullOrEmpty(dialog.FileName)) {
+            privateFileName = dialog.FileName;
 
-                try {
-
-                    File.WriteAllText(dialog.FileName, privateKeyFile, Encoding.UTF8);
-
-                } catch (Exception ex) {
-
-                    System.Windows.MessageBox.Show(String.Format("File could not be saved: {0}", ex.Message));
-                    return;
-                }
-
-            } else {
+            if (String.IsNullOrEmpty(privateFileName)) {
                 return;
             }
 
@@ -65,22 +59,26 @@ namespace SparkleDotNET_Test_Application {
             dialog.Filter = "Sparkle Public Key File|*.sparklePublicKey";
             dialog.Title = "Please choose a location for your Public Key";
             dialog.FileName = "Update Signing Public Key";
-            dialog.ShowDialog();
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) {
+                return;
+            }
 
-            if (!String.IsNullOrEmpty(dialog.FileName)) {
+            publicFileName = dialog.FileName;
 
-                try {
+            if (String.IsNullOrEmpty(publicFileName)) {
+                return;
+            }
 
-                    File.WriteAllText(dialog.FileName, publicKeyFile, Encoding.UTF8);
+            try {
+                File.WriteAllText(privateFileName, privateKeyFile, Encoding.UTF8);
+                File.WriteAllText(publicFileName, publicKeyFile, Encoding.UTF8);
+            } catch (Exception ex) {
 
-                } catch (Exception ex) {
-
-                    System.Windows.MessageBox.Show(String.Format("File could not be saved: {0}", ex.Message));
-                    return;
-                }
-
+                System.Windows.MessageBox.Show(String.Format("File could not be saved: {0}", ex.Message));
+                return;
             }
         }
+        
 
         private void SignFileButton_Click(object sender, RoutedEventArgs e) {
 
@@ -89,7 +87,9 @@ namespace SparkleDotNET_Test_Application {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Sparkle Private Key File|*.sparklePrivateKey";
             dialog.Title = "Please choose your Private Key";
-            dialog.ShowDialog();
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) {
+                return;
+            }
 
             if (!String.IsNullOrEmpty(dialog.FileName)) {
 
@@ -111,7 +111,9 @@ namespace SparkleDotNET_Test_Application {
             dialog = new OpenFileDialog();
             dialog.Filter = "All Files|*.*";
             dialog.Title = "Please choose the file to sign";
-            dialog.ShowDialog();
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) {
+                return;
+            }
 
             if (!String.IsNullOrEmpty(dialog.FileName)) {
 

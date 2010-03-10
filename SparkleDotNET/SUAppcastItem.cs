@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using KNFoundation.KNKVC;
 
 namespace SparkleDotNET {
@@ -10,9 +11,24 @@ namespace SparkleDotNET {
         public SUAppcastItem(Dictionary<string, object> dict) {
 
             Dictionary<string, string> enclosure = (Dictionary<string, string>)dict.ValueForKey("enclosure");
+
+            // Try to find a version string.
+            // Finding the new version number from the RSS feed is a little bit hacky. There are two ways:
+            // 1. A "sparkle:version" attribute on the enclosure tag, an extension from the RSS spec.
+            // 2. If there isn't a version attribute, Sparkle will parse the path in the enclosure, expecting
+            //    that it will look like this: http://something.com/YourApp_0.5.zip. It'll read whatever's between the last
+            //    underscore and the last period as the version number. So name your packages like this: APPNAME_VERSION.extension.
+            //    The big caveat with this is that you can't have underscores in your version strings, as that'll confuse Sparkle.
+            //    Feel free to change the separator string to a hyphen or something more suited to your needs if you like.
+
             string newVersion = (string)enclosure.ValueForKey("sparkle:version");
 
-            // Todo: Parse version number from filename
+            if (newVersion == null) {
+                string[] components = ((string)enclosure.ValueForKey("url")).Split('_');
+                if (components.Count() > 1) {
+                    newVersion = Path.GetFileNameWithoutExtension(components.Last());
+                }
+            }
 
             if (enclosure == null || enclosure.ValueForKey("url") == null || newVersion == null) {
                 throw new Exception("Item doesn't contain version information.");
