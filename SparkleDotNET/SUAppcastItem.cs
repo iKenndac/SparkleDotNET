@@ -49,6 +49,14 @@ namespace SparkleDotNET {
                     DisplayVersionString = VersionString;
                 }
 
+                if (enclosure.ContainsKey("sparkleDotNET:executableType")) {
+                    ExecutableType = (string)enclosure.ValueForKey("sparkleDotNET:executableType");
+                }
+
+                if (enclosure.ContainsKey("sparkleDotNET:primaryInstallationFile") {
+                    PrimaryInstallationFile = (string)enclosure.ValueForKey("sparkleDotNET:primaryInstallationFile");
+                }
+
                 if (dict.ContainsKey("sparkle:releaseNotesLink")) {
                     ReleaseNotesURL = new Uri((string)dict.ValueForKey("sparkle:releaseNotesLink"));
                 } else if (ItemDescription.Substring(0, 7).Equals("http://")) {
@@ -66,6 +74,8 @@ namespace SparkleDotNET {
         private Uri fileURL;
         private string dsaSignature;
         private string minimumSystemVersion;
+        private string executableType;
+        private string primaryInstallationFile;
 
         public Uri FileURL {
             get { return fileURL; }
@@ -147,6 +157,25 @@ namespace SparkleDotNET {
                 this.DidChangeValueForKey("Title");
             }
         }
+
+        public string PrimaryInstallationFile {
+            get { return primaryInstallationFile; }
+            set {
+                this.WillChangeValueForKey("PrimaryInstallationFile");
+                primaryInstallationFile = value;
+                this.DidChangeValueForKey("PrimaryInstallationFile");
+            }
+        }
+
+        public string ExecutableType {
+            get { return executableType; }
+            set {
+                this.WillChangeValueForKey("ExecutableType");
+                executableType = value;
+                this.DidChangeValueForKey("ExecutableType");
+            }
+        }
+
 
         #region IComparable<SUAppcastItem> Members
 

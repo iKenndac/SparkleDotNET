@@ -50,10 +50,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Installation\SUExecutableInstaller.cs" />
+    <Compile Include="Installation\SUMSIInstaller.cs" />
     <Compile Include="SUConstants.cs" />
     <Compile Include="SUAppcast.cs" />
     <Compile Include="SUDSAVerifier.cs" />
     <Compile Include="SUHost.cs" />
+    <Compile Include="Installation\SUInstaller.cs" />
     <Compile Include="SUSystemProfiler.cs" />
     <Compile Include="SUUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
