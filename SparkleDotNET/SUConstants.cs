@@ -13,6 +13,8 @@ namespace SparkleDotNET {
         public const string SUNoUpdateError = "com.Sparkle.NoUpdate";
         public const string SUNoFeedURLError = "com.Sparkle.NoFeedURL";
         public const string SUSignatureError = "com.Sparkle.SignatureError";
+        public const string SUNoInstallerError = "com.Sparkle.NoInstallerError";
+        public const string SUInstallerFailedToLaunchError = "com.Sparkle.InstallerFailedToLaunch";
         public const string SUSkippedVersionKey = "SUSkippedVersion";
         public const string SUUpdateDriverFinishedNotification = "SUUpdateDriverFinished";
         public const string SUFeedURLKey = "SUFeedURL";
@@ -20,11 +22,13 @@ namespace SparkleDotNET {
         public const string SUScheduledCheckIntervalKey = "SUScheduledCheckInterval";
         public const string SUHasLaunchedBeforeKey = "SUHasLaunchedBefore";
         public const string SUSendProfileInfoKey = "SUSendProfileInfo";
+        public const string SUExtractedFilesForCleanupKey = "SUExtractedFilesForCleanup";
 
         public const string SUProfileItemKeyKey = "SUProfileItemKey";
         public const string SUProfileItemDisplayKeyKey = "SUProfileItemDisplayKey";
         public const string SUProfileItemValueKey = "SUProfileItemValue";
         public const string SUProfileItemDisplayValueKey = "SUProfileItemDisplayValue";
+        
 
         public const double SU_DEFAULT_CHECK_INTERVAL = 60 * 60 * 24; // A day
         public const double SU_MIN_CHECK_INTERVAL = 60 * 60; // An hour

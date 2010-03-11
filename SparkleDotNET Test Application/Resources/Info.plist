@@ -17,6 +17,6 @@
     <key>SUPublicDSAKeyFile</key>
     <string>Update Signing Public Key.sparklePublicKey</string>
     <key>SUFeedURL</key>
-    <string>http://www.kennettnet.co.uk/files/SparkleDotNETTestAppUpdates.xml</string>
+    <string>http://dbprocessor.kennettnet.co.uk/MusicRescueWinUpdates.xml</string>
   </dict>
 </plist>

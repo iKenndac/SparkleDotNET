@@ -53,7 +53,7 @@ namespace SparkleDotNET {
                     ExecutableType = (string)enclosure.ValueForKey("sparkleDotNET:executableType");
                 }
 
-                if (enclosure.ContainsKey("sparkleDotNET:primaryInstallationFile") {
+                if (enclosure.ContainsKey("sparkleDotNET:primaryInstallationFile")) {
                     PrimaryInstallationFile = (string)enclosure.ValueForKey("sparkleDotNET:primaryInstallationFile");
                 }
 

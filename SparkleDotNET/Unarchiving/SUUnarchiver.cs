@@ -15,11 +15,12 @@ namespace SparkleDotNET {
         }
 
         public static SUUnarchiver UnarchiverForPath(string archivePath) {
+            return null;
         }
 
         private SUUnarchiverDelegate del;
 
-        public abstract void Start() {
+        public virtual void Start() {
         }
 
         public SUUnarchiverDelegate Delegate {

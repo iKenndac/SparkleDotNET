@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Threading;
 using System.Web;
+using System.IO;
 using KNFoundation.KNKVC;
 using KNFoundation;
 
@@ -46,8 +47,9 @@ namespace SparkleDotNET {
 
             if (!sharedUpdaters.TryGetValue(bundle, out updater)) {
                 updater = new SUUpdater(bundle);
-            }
 
+            }
+           
             return updater;
         }
 
@@ -67,14 +69,22 @@ namespace SparkleDotNET {
                 throw new Exception("Updater for this bundle exists - use SUUpdater.UpdaterForBundle()");
             }
 
-            if (!hasDoneInitalSetup) {
-                SUInstaller.AddInstallerForFileType(new SUExecutableInstaller(), ".exe");
-                SUInstaller.AddInstallerForFileType(new SUMSIInstaller(), ".msi");
-                hasDoneInitalSetup = true;
-            }
+            SUInstaller.AddInstallerForFileType(new SUExecutableInstaller(), ".exe");
+            SUInstaller.AddInstallerForFileType(new SUMSIInstaller(), ".msi");
 
             sharedUpdaters.Add(aBundle, this);
             host = new SUHost(aBundle);
+
+            // Clean out old update files if they exist
+
+            if (host.ObjectForUserDefaultsKey(SUConstants.SUExtractedFilesForCleanupKey) != null) {
+                string path = (string)host.ObjectForUserDefaultsKey(SUConstants.SUExtractedFilesForCleanupKey);
+
+                try {
+                    File.Delete(path);
+                } catch {
+                }
+            }
 
             OfferToAutomaticallyUpdateIfAppropriate();
             ScheduleNextUpdateCheck();

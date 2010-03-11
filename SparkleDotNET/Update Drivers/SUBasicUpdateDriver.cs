@@ -9,10 +9,11 @@ using KNFoundation.KNKVC;
 
 namespace SparkleDotNET {
     class SUBasicUpdateDriver : SUUpdateDriver, SUAppcastDelegate {
-        
+
         protected SUAppcastItem updateItem;
         private WebClient download;
         private string downloadPath;
+        private string extractedFilePath;
 
         public SUBasicUpdateDriver(SUUpdater anUpdater)
             : base(anUpdater) {
@@ -26,7 +27,7 @@ namespace SparkleDotNET {
             appcast.Delegate = this;
             appcast.UserAgentString = String.Format("{0}/{1} SparkleDotNET", Host.Name, Host.DisplayVersion);
             appcast.FetchAppcastFromURL(new Uri(aUrl));
-            
+
         }
 
         private SUVersionComparison VersionComparator() {
@@ -129,12 +130,7 @@ namespace SparkleDotNET {
         }
         public override void AbortUpdate() {
 
-            if (!String.IsNullOrEmpty(downloadPath) && File.Exists(downloadPath)) {
-                try {
-                    File.Delete(downloadPath);
-                } catch {
-                }
-            }
+
 
             base.AbortUpdate();
         }
@@ -165,7 +161,7 @@ namespace SparkleDotNET {
         }
 
         protected virtual void DownloadDidProgress(object sender, DownloadProgressChangedEventArgs e) {
-           // Do nothing. Override this if you care.
+            // Do nothing. Override this if you care.
         }
 
         protected void DownloadDidComplete(object sender, AsyncCompletedEventArgs e) {
@@ -231,11 +227,68 @@ namespace SparkleDotNET {
         }
 
         protected virtual void ExtractUpdate() {
-            ExtractUpdateCompleted();
+            ExtractUpdateCompleted(downloadPath);
         }
 
-        protected virtual void ExtractUpdateCompleted() {
+        protected virtual void ExtractUpdateCompleted(string extractPath) {
+            extractedFilePath = extractPath;
 
+        }
+
+        protected virtual void InstallUpdate() {
+
+            SUInstaller installer = null;
+
+            if (Directory.Exists(extractedFilePath)) {
+
+                // Look for specified file if it exists
+
+                if (updateItem.PrimaryInstallationFile != null) {
+                    installer = SUInstaller.InstallerForFile(Path.Combine(extractedFilePath, updateItem.PrimaryInstallationFile));
+
+                } else {
+                    string[] files = Directory.GetFiles(extractedFilePath);
+                    if (files.Count() > 0) {
+
+                        foreach (string file in files) {
+                            string filePath = Path.Combine(extractedFilePath, file);
+                            installer = SUInstaller.InstallerForFile(filePath);
+                            if (installer != null) {
+                                break;
+                            }
+                        }
+                    }
+                }
+            } else if (File.Exists(extractedFilePath)) {
+                installer = SUInstaller.InstallerForFile(extractedFilePath);
+            }
+
+            if (installer != null) {
+
+                if (installer.BeginInstallationOfItemFromPath(updateItem, extractedFilePath)) {
+                    Host.SetObjectForUserDefaultsKey(extractedFilePath, SUConstants.SUExtractedFilesForCleanupKey);
+                    RemoveDownloadedFiles();
+
+                    System.Windows.Application.Current.Shutdown(0);
+
+
+                } else {
+                    AbortUpdateWithError(new Exception(SUConstants.SUInstallerFailedToLaunchError));
+                }
+
+            } else {
+                AbortUpdateWithError(new Exception(SUConstants.SUNoInstallerError));
+            }
+
+        }
+
+        protected void RemoveDownloadedFiles() {
+            if (!String.IsNullOrEmpty(downloadPath) && File.Exists(downloadPath)) {
+                try {
+                    File.Delete(downloadPath);
+                } catch {
+                }
+            }
         }
 
     }

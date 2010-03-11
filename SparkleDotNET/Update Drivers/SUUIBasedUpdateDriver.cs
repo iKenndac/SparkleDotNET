@@ -57,8 +57,8 @@ namespace SparkleDotNET {
             base.ExtractUpdate();
         }
 
-        protected override void ExtractUpdateCompleted() {
-            base.ExtractUpdateCompleted();
+        protected override void ExtractUpdateCompleted(string extractPath) {
+            base.ExtractUpdateCompleted(extractPath);
 
             if (alert != null) {
                 alert.SwitchToReadyToInstall() ;
@@ -102,7 +102,7 @@ namespace SparkleDotNET {
         }
 
         public void InstallUpdate(SUUpdateAlert alert) {
-
+            InstallUpdate();
         }
     }
 }
