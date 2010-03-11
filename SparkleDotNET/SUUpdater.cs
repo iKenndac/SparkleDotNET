@@ -55,6 +55,7 @@ namespace SparkleDotNET {
         private DispatcherTimer checkTimer;
         private SUUpdateDriver driver;
         private SUUpdaterDelegate del;
+        private bool hasDoneInitalSetup;
 
         private SUUpdater(KNBundle aBundle) {
 
@@ -64,6 +65,12 @@ namespace SparkleDotNET {
 
             if (sharedUpdaters.ContainsKey(aBundle)) {
                 throw new Exception("Updater for this bundle exists - use SUUpdater.UpdaterForBundle()");
+            }
+
+            if (!hasDoneInitalSetup) {
+                SUInstaller.AddInstallerForFileType(new SUExecutableInstaller(), ".exe");
+                SUInstaller.AddInstallerForFileType(new SUMSIInstaller(), ".msi");
+                hasDoneInitalSetup = true;
             }
 
             sharedUpdaters.Add(aBundle, this);
