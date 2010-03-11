@@ -90,6 +90,7 @@
       <DependentUpon>SUUpdatePermissionPromptWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Update Automatically Prompt\SUUpdatePermissionPromptWindowController.cs" />
+    <Compile Include="Unarchiving\SUUnarchiver.cs" />
     <Compile Include="Update Drivers\SUBasicUpdateDriver.cs" />
     <Compile Include="Update Drivers\SUProbingUpdateDriver.cs" />
     <Compile Include="Update Drivers\SUScheduledUpdateDriver.cs" />

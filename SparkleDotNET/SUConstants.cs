@@ -26,7 +26,7 @@ namespace SparkleDotNET {
         public const string SUProfileItemValueKey = "SUProfileItemValue";
         public const string SUProfileItemDisplayValueKey = "SUProfileItemDisplayValue";
 
-        public const double SU_DEFAULT_CHECK_INTERVAL = 10.0;
-        public const double SU_MIN_CHECK_INTERVAL = 10.0;
+        public const double SU_DEFAULT_CHECK_INTERVAL = 60 * 60 * 24; // A day
+        public const double SU_MIN_CHECK_INTERVAL = 60 * 60; // An hour
     }
 }

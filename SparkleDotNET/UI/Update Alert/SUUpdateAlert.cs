@@ -13,9 +13,10 @@ namespace SparkleDotNET {
 
     public interface SUUpdateAlertDegate {
 
-        void UpdateAlertMadeChoice(SUUpdateAlert alert, SUUpdateAlertChoice choice);
+        void UpdateAlertMadeChoice(SUUpdateAlert alert, SUUpdateAlertChoice choice, bool shouldCloseWindowIfNeeded);
         void CancelDownload(SUUpdateAlert alert);
         void InstallUpdate(SUUpdateAlert alert);
+        void UpdateWindowClosed(SUUpdateAlert alert);
     }
 
     public enum SUUpdateAlertChoice {
@@ -25,6 +26,13 @@ namespace SparkleDotNET {
     };
 
     public class SUUpdateAlert : KNWindowController {
+
+        private enum WindowStatus {
+            WaitingForInitialAction,
+            Downloading,
+            UncancellableAction,
+            WaitingForInstall
+        }
 
         [DllImport("user32.dll")]
         static extern IntPtr GetForegroundWindow();
@@ -56,11 +64,17 @@ namespace SparkleDotNET {
         private SUUpdateAlertIndeterminateProgressViewController indeterminateViewController;
         private SUUpdateAlertReadyToInstallViewController readyToInstallViewController;
         private SUUpdateAlertDegate del;
+        private WindowStatus status;
 
         public SUUpdateAlert(Window window, SUHost host, SUAppcastItem item)
             : base(window) {
 
             Window.TaskbarItemInfo = new System.Windows.Shell.TaskbarItemInfo();
+            Window.Closing += WindowShouldClose;
+            Window.Icon = host.Icon;
+            Window.Topmost = true;
+
+            status = WindowStatus.WaitingForInitialAction;
 
             mainViewController = new SUUpdateAlertWindowViewController(new SUUpdateAlertWindowView());
             ViewController = mainViewController;
@@ -93,11 +107,13 @@ namespace SparkleDotNET {
         }
 
         public void SwitchToDownloadAction() {
+            status = WindowStatus.Downloading;
             mainViewController.ActionViewController = downloadingViewController;
             Window.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal;
         }
 
         public void SwitchToIndeterminateAction(string statusText) {
+            status = WindowStatus.UncancellableAction;
             indeterminateViewController.ProgressLabel.Text = statusText;
             mainViewController.ActionViewController = indeterminateViewController;
 
@@ -106,6 +122,9 @@ namespace SparkleDotNET {
         }
 
         public void SwitchToReadyToInstall() {
+
+            status = WindowStatus.WaitingForInstall;
+
             mainViewController.ActionViewController = readyToInstallViewController;
             Window.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal;
             Window.TaskbarItemInfo.ProgressValue = 1.0;
@@ -128,8 +147,6 @@ namespace SparkleDotNET {
 
                 } 
             }
-
-            
         }
 
         public void UpdateDownloadProgressWithEvent(DownloadProgressChangedEventArgs e) {
@@ -149,6 +166,35 @@ namespace SparkleDotNET {
                 downloadingViewController.ProgressBar.Value = 0;
                 downloadingViewController.ProgressLabel.Text = "Downloading update...";
             }
+        }
+
+        private void WindowShouldClose(object sender, CancelEventArgs e) {
+
+            if (status == WindowStatus.Downloading) {
+                CancelDownloadClicked(null, null);
+                if (Delegate != null) {
+                    Delegate.UpdateWindowClosed(this);
+                }
+            } else if (status == WindowStatus.UncancellableAction) {
+                e.Cancel = true;
+                MessageBox.Show("The update cannot be cancelled at this time.");
+            } else if (status == WindowStatus.WaitingForInitialAction) {
+                if (Delegate != null) {
+                    Delegate.UpdateAlertMadeChoice(this, SUUpdateAlertChoice.SURemindMeLaterChoice, false);
+                }
+
+            } else if (status == WindowStatus.WaitingForInstall) {
+
+                
+
+            }
+
+            if (!e.Cancel) {
+                if (Delegate != null) {
+                    Delegate.UpdateWindowClosed(this);
+                }
+            }
+
         }
 
         private void DownloadButtonClicked(object sender, EventArgs e) {
@@ -172,7 +218,7 @@ namespace SparkleDotNET {
 
         private void MakeChoice(SUUpdateAlertChoice choice) {
             if (Delegate != null) {
-                Delegate.UpdateAlertMadeChoice(this, choice);
+                Delegate.UpdateAlertMadeChoice(this, choice, true);
             } else {
                 // Eeek! Panic! 
                 this.Window.Close();

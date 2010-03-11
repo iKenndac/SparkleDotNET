@@ -65,7 +65,11 @@ namespace SparkleDotNET {
             }
         }
 
-        public void UpdateAlertMadeChoice(SUUpdateAlert alert, SUUpdateAlertChoice choice) {
+        public void UpdateWindowClosed(SUUpdateAlert alert) {
+            AbortUpdate();
+        }
+
+        public void UpdateAlertMadeChoice(SUUpdateAlert alert, SUUpdateAlertChoice choice, bool shouldCloseWindowIfNeeded) {
 
             Host.SetObjectForUserDefaultsKey(null, SUConstants.SUSkippedVersionKey);
 
@@ -82,7 +86,7 @@ namespace SparkleDotNET {
 
                     Host.SetObjectForUserDefaultsKey(updateItem.VersionString, SUConstants.SUSkippedVersionKey);
                     alert.Delegate = null;
-                    alert.Window.Close();
+                    if (shouldCloseWindowIfNeeded) { alert.Window.Close(); }
 
                     AbortUpdate();
                     break;
@@ -90,7 +94,7 @@ namespace SparkleDotNET {
                 case SUUpdateAlertChoice.SURemindMeLaterChoice:
 
                     alert.Delegate = null;
-                    alert.Window.Close();
+                    if (shouldCloseWindowIfNeeded) { alert.Window.Close(); }
 
                     AbortUpdate();
                     break;

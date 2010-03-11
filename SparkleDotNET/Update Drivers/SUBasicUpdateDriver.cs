@@ -128,6 +128,14 @@ namespace SparkleDotNET {
 
         }
         public override void AbortUpdate() {
+
+            if (!String.IsNullOrEmpty(downloadPath) && File.Exists(downloadPath)) {
+                try {
+                    File.Delete(downloadPath);
+                } catch {
+                }
+            }
+
             base.AbortUpdate();
         }
 
