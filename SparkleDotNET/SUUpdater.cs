@@ -57,7 +57,6 @@ namespace SparkleDotNET {
         private DispatcherTimer checkTimer;
         private SUUpdateDriver driver;
         private SUUpdaterDelegate del;
-        private bool hasDoneInitalSetup;
 
         private SUUpdater(KNBundle aBundle) {
 

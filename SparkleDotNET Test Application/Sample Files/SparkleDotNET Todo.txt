@@ -2,8 +2,5 @@
 ====
 
 - Clean up what's public or not
-- Add .NET version into SUSystemProfiler
 - Unarchive Files
-- Make sure download file name is correct
-- Put loading indicator behind web view
-- Present errors correctly
+- Make strings localisable

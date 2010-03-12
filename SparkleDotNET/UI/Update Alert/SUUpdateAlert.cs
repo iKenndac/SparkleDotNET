@@ -31,7 +31,8 @@ namespace SparkleDotNET {
             WaitingForInitialAction,
             Downloading,
             UncancellableAction,
-            WaitingForInstall
+            WaitingForInstall,
+            UpdateAborted
         }
 
         [DllImport("user32.dll")]
@@ -97,6 +98,11 @@ namespace SparkleDotNET {
             mainViewController.Item = item;
         }
 
+        public void ForceClose() {
+            status = WindowStatus.UpdateAborted;
+            Window.Close();
+        }
+
         public SUUpdateAlertDegate Delegate {
             get { return del; }
             set {
@@ -108,8 +114,10 @@ namespace SparkleDotNET {
 
         public void SwitchToDownloadAction() {
             status = WindowStatus.Downloading;
+            downloadingViewController.ResetView();
             mainViewController.ActionViewController = downloadingViewController;
             Window.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal;
+            Window.TaskbarItemInfo.ProgressValue = 0.0;
         }
 
         public void SwitchToIndeterminateAction(string statusText) {
@@ -163,6 +171,9 @@ namespace SparkleDotNET {
             if (Delegate != null) {
                 Delegate.CancelDownload(this);
                 mainViewController.ActionViewController = buttons;
+                Window.TaskbarItemInfo.ProgressValue = 0;
+                status = WindowStatus.WaitingForInitialAction;
+                Window.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.None;
                 downloadingViewController.ProgressBar.Value = 0;
                 downloadingViewController.ProgressLabel.Text = "Downloading update...";
             }
@@ -184,12 +195,9 @@ namespace SparkleDotNET {
                 }
 
             } else if (status == WindowStatus.WaitingForInstall) {
-
-                
-
             }
 
-            if (!e.Cancel) {
+            if (!e.Cancel && status != WindowStatus.UpdateAborted) {
                 if (Delegate != null) {
                     Delegate.UpdateWindowClosed(this);
                 }

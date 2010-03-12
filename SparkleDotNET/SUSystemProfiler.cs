@@ -48,10 +48,17 @@ namespace SparkleDotNET {
             string version = Environment.OSVersion.ToString();
             profile.Add(DictionaryForProfileItem("osVersion", "OS Version", version, version));
 
+            //.NET version
+
+            string frameworkVersion = Environment.Version.ToString();
+            profile.Add(DictionaryForProfileItem("runtimeVersion", ".NET Version", frameworkVersion, frameworkVersion));
+
             // 64-bit?
- 
+
             if (Environment.Is64BitOperatingSystem) {
                 profile.Add(DictionaryForProfileItem("cpu64bit", "CPU is 64-Bit?", "true", "Yes"));
+            } else {
+                profile.Add(DictionaryForProfileItem("cpu64bit", "CPU is 64-Bit?", "false", "No"));
             }
 
             // CPU Count

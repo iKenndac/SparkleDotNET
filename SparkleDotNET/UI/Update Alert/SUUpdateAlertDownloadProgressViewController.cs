@@ -6,11 +6,19 @@ using System.Windows.Controls;
 using KNFoundation;
 
 namespace SparkleDotNET {
-    class SUUpdateAlertIndeterminateProgressViewController : KNViewController {
+    class SUUpdateAlertDownloadProgressViewController : KNViewController {
 
 
-        public SUUpdateAlertIndeterminateProgressViewController(UserControl view)
+        public SUUpdateAlertDownloadProgressViewController(UserControl view)
             : base(view) {
+        }
+
+        public void ResetView() {
+
+            ProgressLabel.Text = "Downloading update...";
+            ProgressBar.IsIndeterminate = false;
+            ProgressBar.Value = 0;
+
         }
 
         public Button CancelButton {

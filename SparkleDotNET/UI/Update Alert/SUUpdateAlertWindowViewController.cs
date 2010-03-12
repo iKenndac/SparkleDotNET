@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
+using System.Windows.Threading;
 using KNFoundation;
 using KNFoundation.KNKVC;
 
@@ -51,6 +52,7 @@ namespace SparkleDotNET {
                 if (Host != null && Item != null) {
 
                     ReleaseNotes.Source = Item.ReleaseNotesURL;
+                    ReleaseNotes.LoadCompleted += ReleaseNotesDidLoad;
                     UpdateHeaderLabel.Text = String.Format("A new version of {0} is available!", Host.Name);
 
                     if (Item.DisplayVersionString.Equals(Host.DisplayVersion)) {
@@ -64,6 +66,25 @@ namespace SparkleDotNET {
                     IconView.Source = Host.Icon;
                 }
             }
+        }
+
+        private void ReleaseNotesDidLoad(object sender, EventArgs e) {
+
+            // Give the UI thread a bit of time to render and settle. 
+            // Without this, the window can look a bit flickery if the 
+            // page loads really fast.
+
+            DispatcherTimer timer = new DispatcherTimer(TimeSpan.FromSeconds(0.25),
+                DispatcherPriority.Normal,
+                TimerFired,
+                Dispatcher.CurrentDispatcher);
+
+            timer.Start();
+        }
+
+        private void TimerFired(object sender, EventArgs e) {
+            LoadingReleaseNotesProgressBar.Visibility = Visibility.Hidden;
+            ReleaseNotes.Visibility = Visibility.Visible;
         }
 
         public KNViewController ActionViewController {
@@ -104,7 +125,10 @@ namespace SparkleDotNET {
             }
         }
 
-   
+        public ProgressBar LoadingReleaseNotesProgressBar {
+            protected set;
+            get;
+        }
 
         public Image IconView {
             protected set;

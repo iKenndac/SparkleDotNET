@@ -15,6 +15,8 @@ namespace SparkleDotNET {
         public const string SUSignatureError = "com.Sparkle.SignatureError";
         public const string SUNoInstallerError = "com.Sparkle.NoInstallerError";
         public const string SUInstallerFailedToLaunchError = "com.Sparkle.InstallerFailedToLaunch";
+        public const string SUDownloadFailedError = "com.Sparkle.DownloadFailedError";
+        public const string SUExtractionFailedError = "com.Sparkle.ExtractionFailedError";
         public const string SUSkippedVersionKey = "SUSkippedVersion";
         public const string SUUpdateDriverFinishedNotification = "SUUpdateDriverFinished";
         public const string SUFeedURLKey = "SUFeedURL";

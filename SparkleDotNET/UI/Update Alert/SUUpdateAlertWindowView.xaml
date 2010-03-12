@@ -11,7 +11,8 @@
         <TextBlock Height="35" Margin="90,39,13,0" Name="UpdateHeaderDescription" Text="{}{0} {1} is available - you have {2}. Would you like to download it now?" TextWrapping="Wrap" VerticalAlignment="Top" />
         <TextBlock FontSize="12" FontWeight="Bold" Height="17" Margin="90,80,12,0" Name="ReleaseNotesHeader" Text="Release Notes:" VerticalAlignment="Top" />
         <Rectangle Margin="90,103,12,68" Name="rectangle1" Stroke="Gray" Fill="White" />
-        <WebBrowser Margin="91,104,13,69" Name="ReleaseNotes" />
-        <Canvas Height="50" Margin="90,0,12,12" Name="CurrentActionContainer" VerticalAlignment="Bottom" />
+        <WebBrowser Margin="91,104,13,69" Name="ReleaseNotes" Visibility="Hidden" />
+        <Canvas Height="50" Margin="90,0,12,12" Name="CurrentActionContainer" VerticalAlignment="Bottom"></Canvas>
+        <ProgressBar Name="LoadingReleaseNotesProgressBar" IsIndeterminate="True" Height="23" Margin="282,0,203,105" VerticalAlignment="Bottom" />
     </Grid>
 </UserControl>

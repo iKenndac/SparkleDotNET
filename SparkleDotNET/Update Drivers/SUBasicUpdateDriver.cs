@@ -127,6 +127,8 @@ namespace SparkleDotNET {
 
         protected virtual void AbortUpdateWithError(Exception error) {
 
+            CancelDownload(null);
+            AbortUpdate();
         }
         public override void AbortUpdate() {
 
@@ -138,18 +140,70 @@ namespace SparkleDotNET {
         protected void DownloadUpdate() {
 
             if (download == null) {
-                string path = Path.GetTempPath();
-                if (!Directory.Exists(path)) {
-                    Directory.CreateDirectory(path);
-                }
+                
+                // Get the filename from the URL in the background, 
+                // since we hit the http server and it could take a while
 
-                downloadPath = Path.Combine(path, updateItem.FileURL.Segments.Last());
-
-                download = new WebClient();
-                download.DownloadProgressChanged += DownloadDidProgress;
-                download.DownloadFileCompleted += DownloadDidComplete;
-                download.DownloadFileAsync(updateItem.FileURL, downloadPath);
+                BackgroundWorker filenameWorker = new BackgroundWorker();
+                filenameWorker.DoWork += GetFileNameFromURL;
+                filenameWorker.RunWorkerCompleted += FileNameWasFound;
+                filenameWorker.RunWorkerAsync(updateItem.FileURL);
             }
+        }
+
+        private void FileNameWasFound(object sender, RunWorkerCompletedEventArgs e) {
+
+            string path = Path.GetTempPath();
+            if (!Directory.Exists(path)) {
+                Directory.CreateDirectory(path);
+            }
+
+            downloadPath = Path.Combine(path, (string)e.Result);
+
+            download = new WebClient();
+            download.DownloadProgressChanged += DownloadDidProgress;
+            download.DownloadFileCompleted += DownloadDidComplete;
+            download.DownloadFileAsync(updateItem.FileURL, downloadPath);
+
+        }
+
+        private void GetFileNameFromURL(object sender, DoWorkEventArgs e) {
+
+            // First, see if there's a content-disposition header.
+
+            /*
+            * Content-Disposition: attachment; filename=genome.jpeg;
+                    modification-date="Wed, 12 Feb 1997 16:29:51 -0500";
+           */
+
+            Uri url = (Uri)e.Argument;
+
+            try {
+                WebRequest WebRequestObject = HttpWebRequest.Create(url);
+                WebResponse ResponseObject = WebRequestObject.GetResponse();
+                ResponseObject.Close();
+
+                foreach (string HeaderKey in ResponseObject.Headers) {
+
+                    if (HeaderKey.Equals("content-disposition", StringComparison.OrdinalIgnoreCase)) {
+
+                        string[] sections = ResponseObject.Headers[HeaderKey].Split(';');
+                        foreach (string section in sections) {
+
+                            string[] parts = section.Split('=');
+                            if (parts.Count() == 2) {
+                                e.Result = Uri.UnescapeDataString(parts[1].Trim(new char[] { ' ', '"', '\'' }));
+                                return;
+                            }
+                        }
+                    }
+                }
+            } catch { }
+
+            // If not, strip out any query and return the filename
+
+            e.Result = Path.GetFileName(url.AbsolutePath);
+
         }
 
         public void CancelDownload(SUUpdateAlert alert) {
@@ -174,7 +228,10 @@ namespace SparkleDotNET {
                     } catch { }
                 }
 
-                AbortUpdateWithError(e.Error);
+                if (!e.Cancelled) {
+                    AbortUpdateWithError(e.Error);
+                }
+               
             } else {
                 VerifySignature();
             }

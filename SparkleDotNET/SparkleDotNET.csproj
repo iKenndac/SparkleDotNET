@@ -65,7 +65,7 @@
     <Compile Include="UI\Update Alert\SUUpdateAlertReadyToInstallView.xaml.cs">
       <DependentUpon>SUUpdateAlertReadyToInstallView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Update Alert\SUUpdateAlertIndeterminateProgressViewController.cs" />
+    <Compile Include="UI\Update Alert\SUUpdateAlertDownloadProgressViewController.cs" />
     <Compile Include="UI\Update Alert\SUUpdateAlertIndeterminateProgressView.xaml.cs">
       <DependentUpon>SUUpdateAlertIndeterminateProgressView.xaml</DependentUpon>
     </Compile>
@@ -77,7 +77,7 @@
     <Compile Include="UI\Update Alert\SUUpdateAlertDownloadProgressView.xaml.cs">
       <DependentUpon>SUUpdateAlertDownloadProgressView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Update Alert\SUUpdateAlertDownloadProgressViewController.cs" />
+    <Compile Include="UI\Update Alert\SUUpdateAlertIndeterminateProgressViewController.cs" />
     <Compile Include="UI\Update Alert\SUUpdateAlertWindow.xaml.cs">
       <DependentUpon>SUUpdateAlertWindow.xaml</DependentUpon>
     </Compile>
