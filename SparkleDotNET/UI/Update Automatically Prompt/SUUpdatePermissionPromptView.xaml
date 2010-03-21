@@ -13,7 +13,7 @@
         <Button Content="Don't Check" Height="23" HorizontalAlignment="Right" Margin="0,0,153,12" Name="DontCheckButton" VerticalAlignment="Bottom" Width="93" IsCancel="True" />
         <Expander Header="" Margin="64,96,12,41" Name="ExtendedInfoContainer" IsExpanded="True">
             <Grid>
-                <TextBox Margin="42,39,0,0" Name="InfoBox" SelectionBrush="#003399FF" TextWrapping="Wrap" IsEnabled="True" VerticalScrollBarVisibility="Auto" />
+                <TextBox Margin="42,39,0,0" Name="InfoBox" TextWrapping="Wrap" IsEnabled="True" VerticalScrollBarVisibility="Auto" />
                 <TextBlock Height="33" Margin="42,0,0,0" Name="textBlock1" Text="This is used to help us plan future development work. This is the information that would be sent:" TextWrapping="Wrap" VerticalAlignment="Top" />
             </Grid>
         </Expander>
