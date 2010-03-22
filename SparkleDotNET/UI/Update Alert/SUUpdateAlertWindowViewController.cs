@@ -63,7 +63,7 @@ namespace SparkleDotNET {
                         UpdateHeaderDescription.Text = String.Format("{0} {1} is available - you have {2}. Would you like to download it now?",
                             Host.Name, Item.DisplayVersionString, Host.DisplayVersion);
                     }
-                    IconView.Source = Host.Icon;
+                    IconView.Source = Host.LargeIcon;
                 }
             }
         }

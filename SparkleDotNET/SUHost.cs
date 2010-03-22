@@ -56,6 +56,12 @@ namespace SparkleDotNET {
             }
         }
 
+        public BitmapSource LargeIcon {
+            get {
+                return bundle.LargeBundleIcon;
+            }
+        }
+
         public string FeedURL {
             get {
 

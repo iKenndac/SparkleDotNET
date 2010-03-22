@@ -17,7 +17,7 @@ namespace SparkleDotNET {
                 Host = host;
                 UpdateHeaderDescription.Text = String.Format("Should {0} automatically check for updates? You can always check for updates manually in the {1} menu.",
                     Host.Name, "Help");
-                IconView.Source = host.Icon;
+                IconView.Source = host.LargeIcon;
                 ExtendedInfoContainer.Expanded += ExpandWindow;
                 ExtendedInfoContainer.Collapsed += CollapseWindow;
                 ExtendedInfoContainer.IsExpanded = false;

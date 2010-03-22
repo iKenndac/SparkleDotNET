@@ -96,7 +96,7 @@ namespace SparkleDotNET {
             AbortUpdate();
         }
 
-        public void UpdateAlertMadeChoice(SUUpdateAlert alert, SUUpdateAlertChoice choice, bool shouldCloseWindowIfNeeded) {
+        public void UpdateAlertMadeChoice(SUUpdateAlert anAlert, SUUpdateAlertChoice choice, bool shouldCloseWindowIfNeeded) {
 
             Host.SetObjectForUserDefaultsKey(null, SUConstants.SUSkippedVersionKey);
 
@@ -104,7 +104,7 @@ namespace SparkleDotNET {
                 case SUUpdateAlertChoice.SUInstallUpdateChoice:
 
                     // Download!
-                    alert.SwitchToDownloadAction();
+                    anAlert.SwitchToDownloadAction();
                     DownloadUpdate();
 
                     break;
@@ -112,16 +112,18 @@ namespace SparkleDotNET {
                 case SUUpdateAlertChoice.SUSkipThisVersionChoice:
 
                     Host.SetObjectForUserDefaultsKey(updateItem.VersionString, SUConstants.SUSkippedVersionKey);
-                    alert.Delegate = null;
-                    if (shouldCloseWindowIfNeeded) { alert.Window.Close(); }
+                    anAlert.Delegate = null;
+                    if (shouldCloseWindowIfNeeded) { anAlert.Window.Close(); }
+                    alert = null;
 
                     AbortUpdate();
                     break;
 
                 case SUUpdateAlertChoice.SURemindMeLaterChoice:
 
-                    alert.Delegate = null;
-                    if (shouldCloseWindowIfNeeded) { alert.Window.Close(); }
+                    anAlert.Delegate = null;
+                    if (shouldCloseWindowIfNeeded) { anAlert.Window.Close(); }
+                    alert = null;
 
                     AbortUpdate();
                     break;
