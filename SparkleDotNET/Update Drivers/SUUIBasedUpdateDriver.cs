@@ -33,22 +33,15 @@ namespace SparkleDotNET {
         }
 
         protected override void AbortUpdateWithError(Exception error) {
+            
+            string message = SULocalizedStrings.StringForKey("Generic Error Message");
+            string specificMessage = SULocalizedStrings.StringForKey(error.Message);
 
-            string message = "An error occurred while updating. Please try again later.";
-
-            //SUNoUpdateError 
-
-            if (error.Message.Equals(SUConstants.SUNoFeedURLError)) {
-                message = "An error occurred in retrieving update information. Please try again later.";
-            } else if (error.Message.Equals(SUConstants.SUDownloadFailedError)) {
-                message = "An error occurred while downloading the update. Please try again later.";
-            } else if (error.Message.Equals(SUConstants.SUExtractionFailedError) || error.Message.Equals(SUConstants.SUSignatureError)) {
-                message = "An error occurred while extracting the archive. Please try again later.";
-            } else if (error.Message.Equals(SUConstants.SUInstallerFailedToLaunchError) || error.Message.Equals(SUConstants.SUNoInstallerError)) {
-                message = "An error occurred while installing the update. Please try again later.";
+            if (!String.IsNullOrWhiteSpace(specificMessage)) {
+                message = specificMessage;
             }
 
-            MessageBox.Show(message, "Update Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(message, SULocalizedStrings.StringForKey("Update Failed"), MessageBoxButton.OK, MessageBoxImage.Error);
 
             base.AbortUpdateWithError(error);
         }
@@ -59,7 +52,7 @@ namespace SparkleDotNET {
                 Updater.Delegate.UpdaterDidNotFindUpdate(Updater);
             }
 
-            MessageBox.Show("You're up to date!", "Hi", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+            MessageBox.Show(SULocalizedStrings.StringForKey(SUConstants.SUNoUpdateError), SULocalizedStrings.StringForKey("Up To Date"), MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
             AbortUpdate();            
 
         }
@@ -72,14 +65,14 @@ namespace SparkleDotNET {
 
         protected override void VerifySignature() {
             if (alert != null) {
-                alert.SwitchToIndeterminateAction("Verifying...");
+                alert.SwitchToIndeterminateAction(SULocalizedStrings.StringForKey("Verifying..."));
             }
             base.VerifySignature();
         }
 
         protected override void ExtractUpdate() {
             if (alert != null) {
-                alert.SwitchToIndeterminateAction("Extracting...");
+                alert.SwitchToIndeterminateAction(SULocalizedStrings.StringForKey("Extracting..."));
             }
             base.ExtractUpdate();
         }

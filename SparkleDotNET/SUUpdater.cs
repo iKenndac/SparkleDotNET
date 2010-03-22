@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Threading;
 using System.Web;
 using System.IO;
+using System.Reflection;
 using KNFoundation.KNKVC;
 using KNFoundation;
 

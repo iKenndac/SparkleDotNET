@@ -6,6 +6,8 @@ using System.Text;
 using System.ComponentModel;
 using System.Management;
 using System.Runtime.InteropServices;
+using System.Reflection;
+using KNFoundation;
 using KNFoundation.KNKVC;
 
 namespace SparkleDotNET {
@@ -37,33 +39,33 @@ namespace SparkleDotNET {
 
             // App name
 
-            profile.Add(DictionaryForProfileItem("appName", "Application Name", host.Name, host.Name));
+            profile.Add(DictionaryForProfileItem("appName", SULocalizedStrings.StringForKey("Application Name"), host.Name, host.Name));
 
             // App version
 
-            profile.Add(DictionaryForProfileItem("appVersion", "Application Version", host.Version, host.Version));
+            profile.Add(DictionaryForProfileItem("appVersion", SULocalizedStrings.StringForKey("Application Version"), host.Version, host.Version));
 
             // System version
 
             string version = Environment.OSVersion.ToString();
-            profile.Add(DictionaryForProfileItem("osVersion", "OS Version", version, version));
+            profile.Add(DictionaryForProfileItem("osVersion", SULocalizedStrings.StringForKey("OS Version"), version, version));
 
             //.NET version
 
             string frameworkVersion = Environment.Version.ToString();
-            profile.Add(DictionaryForProfileItem("runtimeVersion", ".NET Version", frameworkVersion, frameworkVersion));
+            profile.Add(DictionaryForProfileItem("runtimeVersion", SULocalizedStrings.StringForKey(".NET Version"), frameworkVersion, frameworkVersion));
 
             // 64-bit?
 
             if (Environment.Is64BitOperatingSystem) {
-                profile.Add(DictionaryForProfileItem("cpu64bit", "CPU is 64-Bit?", "true", "Yes"));
+                profile.Add(DictionaryForProfileItem("cpu64bit", SULocalizedStrings.StringForKey("CPU is 64-Bit?"), "true", SULocalizedStrings.StringForKey("Yes")));
             } else {
-                profile.Add(DictionaryForProfileItem("cpu64bit", "CPU is 64-Bit?", "false", "No"));
+                profile.Add(DictionaryForProfileItem("cpu64bit", SULocalizedStrings.StringForKey("CPU is 64-Bit?"), "false", SULocalizedStrings.StringForKey("No")));
             }
 
             // CPU Count
 
-            profile.Add(DictionaryForProfileItem("ncpu", "Number of CPUs", Environment.ProcessorCount.ToString(), Environment.ProcessorCount.ToString()));
+            profile.Add(DictionaryForProfileItem("ncpu", SULocalizedStrings.StringForKey("Number of CPUs"), Environment.ProcessorCount.ToString(), Environment.ProcessorCount.ToString()));
 
             // RAM
 
@@ -73,7 +75,7 @@ namespace SparkleDotNET {
                 installedMemory = memStatus.ullTotalPhys / 1024 / 1024;
             }
 
-            profile.Add(DictionaryForProfileItem("ramMB","Memory (MB)", installedMemory.ToString(), installedMemory.ToString()));
+            profile.Add(DictionaryForProfileItem("ramMB", SULocalizedStrings.StringForKey("Memory (MB)"), installedMemory.ToString(), installedMemory.ToString()));
 
             return profile;
         }

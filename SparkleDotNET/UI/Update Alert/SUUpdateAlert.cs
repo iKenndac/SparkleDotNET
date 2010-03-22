@@ -159,7 +159,7 @@ namespace SparkleDotNET {
 
         public void UpdateDownloadProgressWithEvent(DownloadProgressChangedEventArgs e) {
             downloadingViewController.ProgressBar.Value = e.ProgressPercentage;
-            downloadingViewController.ProgressLabel.Text = String.Format("Downloading {0} of {1}...",
+            downloadingViewController.ProgressLabel.Text = String.Format(SULocalizedStrings.StringForKey("Downloading Status"),
                 HumanReadableFileSize(e.BytesReceived), 
                 HumanReadableFileSize(e.TotalBytesToReceive));
 
@@ -175,7 +175,7 @@ namespace SparkleDotNET {
                 status = WindowStatus.WaitingForInitialAction;
                 Window.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.None;
                 downloadingViewController.ProgressBar.Value = 0;
-                downloadingViewController.ProgressLabel.Text = "Downloading update...";
+                downloadingViewController.ProgressLabel.Text = SULocalizedStrings.StringForKey("Downloading update...");
             }
         }
 
@@ -188,7 +188,7 @@ namespace SparkleDotNET {
                 }
             } else if (status == WindowStatus.UncancellableAction) {
                 e.Cancel = true;
-                MessageBox.Show("The update cannot be cancelled at this time.");
+                MessageBox.Show(SULocalizedStrings.StringForKey("Update Cannot Be Cancelled"));
             } else if (status == WindowStatus.WaitingForInitialAction) {
                 if (Delegate != null) {
                     Delegate.UpdateAlertMadeChoice(this, SUUpdateAlertChoice.SURemindMeLaterChoice, false);
@@ -242,31 +242,31 @@ namespace SparkleDotNET {
             if (value <= 0) {
                 //this method should never attempt to divide by 0
                 //this is just an extra precaution
-                return "0 Bytes";
+                return "0" + SULocalizedStrings.StringForKey("Byte Unit");
             } else if ( value >= (Math.Pow(1024, 4))) {
                 //TB
                 dblAns = (((value / 1024) / 1024) / 1024) / 1024;
-                return String.Format("{0:###,###,##0.##}", dblAns) + " TB";
+                return String.Format("{0:###,###,##0.##}", dblAns) + SULocalizedStrings.StringForKey("Terabyte Unit");
             } else if (value >= (Math.Pow(1024, 3))) {
                 //GB
                 dblAns = ((value / 1024) / 1024) / 1024;
-                return String.Format("{0:###,###,##0.##}", dblAns) + " GB";
+                return String.Format("{0:###,###,##0.##}", dblAns) + SULocalizedStrings.StringForKey("Gigabyte Unit");
             } else if (value >= (Math.Pow(1024, 2))) {
                 //MB
                 dblAns = (value / 1024) / 1024;
-                return String.Format("{0:###,###,##0.0}", dblAns) + " MB";
+                return String.Format("{0:###,###,##0.0}", dblAns) + SULocalizedStrings.StringForKey("Megabyte Unit");
             } else if ( value >= 1024) {
                 //KB
                 dblAns = value / 1024;
-                return String.Format("{0:###,###,##0}", dblAns) + " KB";
+                return String.Format("{0:###,###,##0}", dblAns) + SULocalizedStrings.StringForKey("Kilobyte Unit");
             } else {
                 //Bytes
-                return String.Format("{0:###,###,##0}", dblAns) + " Bytes";
+                return String.Format("{0:###,###,##0}", dblAns) + SULocalizedStrings.StringForKey("Byte Unit");
             }
 
             } catch {}
-            
-            return "unknown";
+
+           return SULocalizedStrings.StringForKey("unknown");
         }
 
     }

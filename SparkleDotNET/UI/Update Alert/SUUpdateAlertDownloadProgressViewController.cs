@@ -15,7 +15,7 @@ namespace SparkleDotNET {
 
         public void ResetView() {
 
-            ProgressLabel.Text = "Downloading update...";
+            ProgressLabel.Text = SULocalizedStrings.StringForKey("Downloading update...");
             ProgressBar.IsIndeterminate = false;
             ProgressBar.Value = 0;
 

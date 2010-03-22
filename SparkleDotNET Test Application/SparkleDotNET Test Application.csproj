@@ -86,8 +86,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Resource Include="Sample Files\SparkleDotNET Todo.txt" />
-    <Resource Include="Sample Files\SparkleDotNETTestAppUpdates.xml" />
+    <Content Include="Sample Files\Sample Release Notes\rnotes.css" />
+    <Content Include="Sample Files\Sample Release Notes\rnotes.html">
+      <SubType>Designer</SubType>
+    </Content>
+    <Resource Include="SparkleDotNET Todo.txt" />
+    <Resource Include="Sample Files\Sample Appcast.xml" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

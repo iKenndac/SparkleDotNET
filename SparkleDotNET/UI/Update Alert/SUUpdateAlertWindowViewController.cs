@@ -53,14 +53,14 @@ namespace SparkleDotNET {
 
                     ReleaseNotes.Source = Item.ReleaseNotesURL;
                     ReleaseNotes.LoadCompleted += ReleaseNotesDidLoad;
-                    UpdateHeaderLabel.Text = String.Format("A new version of {0} is available!", Host.Name);
+                    UpdateHeaderLabel.Text = String.Format(SULocalizedStrings.StringForKey("Update Available Header"), Host.Name);
 
                     if (Item.DisplayVersionString.Equals(Host.DisplayVersion)) {
                         // Display more info if the version strings are the same; useful for betas.
-                        UpdateHeaderDescription.Text = String.Format("{0} {1} ({3}) is available - you have {2} ({4}). Would you like to download it now?",
+                        UpdateHeaderDescription.Text = String.Format(SULocalizedStrings.StringForKey("Update Available Extra Detail"),
                             Host.Name, Item.DisplayVersionString, Host.DisplayVersion, Item.VersionString, Host.Version);
                     } else {
-                        UpdateHeaderDescription.Text = String.Format("{0} {1} is available - you have {2}. Would you like to download it now?",
+                        UpdateHeaderDescription.Text = String.Format(SULocalizedStrings.StringForKey("Update Available Detail"),
                             Host.Name, Item.DisplayVersionString, Host.DisplayVersion);
                     }
                     IconView.Source = Host.LargeIcon;

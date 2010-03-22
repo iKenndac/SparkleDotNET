@@ -15,8 +15,8 @@ namespace SparkleDotNET {
             : base(new SUUpdatePermissionPromptView()) {
 
                 Host = host;
-                UpdateHeaderDescription.Text = String.Format("Should {0} automatically check for updates? You can always check for updates manually in the {1} menu.",
-                    Host.Name, "Help");
+                UpdateHeaderDescription.Text = String.Format(SULocalizedStrings.StringForKey("Update Automatically Prompt Header"),
+                    Host.Name, SULocalizedStrings.StringForKey("Help"));
                 IconView.Source = host.LargeIcon;
                 ExtendedInfoContainer.Expanded += ExpandWindow;
                 ExtendedInfoContainer.Collapsed += CollapseWindow;
