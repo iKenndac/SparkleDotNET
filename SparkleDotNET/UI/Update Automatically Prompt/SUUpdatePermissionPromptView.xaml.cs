@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SparkleDotNET {
+namespace SparkleDotNET.UI.Update_Automatically_Prompt {
     /// <summary>
     /// Interaction logic for SUUpdatePermissionPromptView.xaml
     /// </summary>

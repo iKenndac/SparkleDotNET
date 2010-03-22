@@ -6,6 +6,7 @@ using System.Net;
 using System.IO;
 using System.ComponentModel;
 using KNFoundation.KNKVC;
+using SparkleDotNET.UI.Update_Alert;
 
 namespace SparkleDotNET {
     class SUBasicUpdateDriver : SUUpdateDriver, SUAppcastDelegate {

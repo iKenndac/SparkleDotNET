@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SparkleDotNET {
+namespace SparkleDotNET.UI.Update_Alert {
     /// <summary>
     /// Interaction logic for SUUpdateAlertDownloadProgressView.xaml
     /// </summary>

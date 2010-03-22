@@ -9,6 +9,7 @@ using System.IO;
 using System.Reflection;
 using KNFoundation.KNKVC;
 using KNFoundation;
+using SparkleDotNET.UI.Update_Automatically_Prompt;
 
 namespace SparkleDotNET {
 

@@ -9,7 +9,7 @@ using System.Windows.Threading;
 using KNFoundation;
 using KNFoundation.KNKVC;
 
-namespace SparkleDotNET {
+namespace SparkleDotNET.UI.Update_Alert {
     class SUUpdateAlertWindowViewController : KNViewController, KNKVOObserver {
 
         private SUHost host;
@@ -20,12 +20,9 @@ namespace SparkleDotNET {
         public SUUpdateAlertWindowViewController(UserControl view)
             : base(view) {
 
-
                 this.AddObserverToKeyPathWithOptions(this, "Host", 0, null);
                 this.AddObserverToKeyPathWithOptions(this, "Item", 0, null);
         }
-
-        
 
         public SUHost Host {
             get { return host; }
@@ -159,6 +156,5 @@ namespace SparkleDotNET {
                 return currentActionContainer;
             }
         }
-   
     }
 }

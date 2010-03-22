@@ -3,4 +3,3 @@
 
 - Clean up what's public or not
 - Unarchive Zip/etc Files
-- Make strings localisable

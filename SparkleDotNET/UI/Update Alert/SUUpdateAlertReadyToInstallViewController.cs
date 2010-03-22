@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Controls;
 using KNFoundation;
 
-namespace SparkleDotNET {
+namespace SparkleDotNET.UI.Update_Alert {
     class SUUpdateAlertReadyToInstallViewController : KNViewController {
 
 

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SparkleDotNET.SUUpdatePermissionPromptView"
+﻿<UserControl x:Class="SparkleDotNET.UI.Update_Automatically_Prompt.SUUpdatePermissionPromptView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -14,7 +14,7 @@
         <Expander Header="" Margin="64,96,12,41" Name="ExtendedInfoContainer" IsExpanded="True">
             <Grid>
                 <TextBox Margin="42,39,0,0" Name="InfoBox" TextWrapping="Wrap" IsEnabled="True" VerticalScrollBarVisibility="Auto" />
-                <TextBlock Height="33" Margin="42,0,0,0" Name="textBlock1" Text="This is used to help us plan future development work. This is the information that would be sent:" TextWrapping="Wrap" VerticalAlignment="Top" />
+                <TextBlock Height="33" Margin="42,0,0,0" Name="ProfileExplanation" Text="This is used to help us plan future development work. This is the information that would be sent:" TextWrapping="Wrap" VerticalAlignment="Top" />
             </Grid>
         </Expander>
         <CheckBox Content="Include anonymous system profile" Height="16" HorizontalAlignment="Left" Margin="90,100,0,0" Name="SendProfileCheck" VerticalAlignment="Top" Width="347" IsChecked="True" FontWeight="Bold" />
