@@ -1,4 +1,4 @@
-﻿<Window x:Class="SparkleDotNET.UI.Update_Alert.SUUpdateAlertWindow"
+﻿<Window x:Class="SparkleDotNET.SUUpdateAlertWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Software Update" Height="385" Width="563" MinWidth="480" MinHeight="350" WindowStartupLocation="CenterScreen" Background="#FFF0F0F0" ResizeMode="CanResizeWithGrip" WindowStyle="SingleBorderWindow">

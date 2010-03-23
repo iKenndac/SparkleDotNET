@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using KNFoundation;
 using KNFoundation.KNKVC;
 
-namespace SparkleDotNET.UI.Update_Automatically_Prompt {
+namespace SparkleDotNET {
     class SUUpdatePermissionPromptViewController : KNViewController {
 
         private double oldHeight;

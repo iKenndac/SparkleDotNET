@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using KNFoundation;
 
-namespace SparkleDotNET.UI.Update_Automatically_Prompt {
+namespace SparkleDotNET {
 
     public interface SUUpdatePermissionPromptWindowControllerDelegate {
 

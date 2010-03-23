@@ -139,17 +139,17 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Strings\SparkleStrings.resx">
+    <EmbeddedResource Include="Strings\English UI Strings\SparkleStrings.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Update Alert\SUUpdateAlertActionButtonsViewStrings.resx" />
-    <EmbeddedResource Include="UI\Update Alert\SUUpdateAlertDownloadProgressViewStrings.resx" />
-    <EmbeddedResource Include="UI\Update Alert\SUUpdateAlertIndeterminateProgressViewStrings.resx" />
-    <EmbeddedResource Include="UI\Update Alert\SUUpdateAlertReadyToInstallViewStrings.resx" />
-    <EmbeddedResource Include="UI\Update Alert\SUUpdateAlertWindowStrings.resx" />
-    <EmbeddedResource Include="UI\Update Alert\SUUpdateAlertWindowViewStrings.resx" />
-    <EmbeddedResource Include="UI\Update Automatically Prompt\SUUpdatePermissionPromptViewStrings.resx" />
-    <EmbeddedResource Include="UI\Update Automatically Prompt\SUUpdatePermissionPromptWindowStrings.resx" />
+    <EmbeddedResource Include="Strings\English UI Strings\SUUpdateAlertActionButtonsViewStrings.resx" />
+    <EmbeddedResource Include="Strings\English UI Strings\SUUpdateAlertDownloadProgressViewStrings.resx" />
+    <EmbeddedResource Include="Strings\English UI Strings\SUUpdateAlertIndeterminateProgressViewStrings.resx" />
+    <EmbeddedResource Include="Strings\English UI Strings\SUUpdateAlertReadyToInstallViewStrings.resx" />
+    <EmbeddedResource Include="Strings\English UI Strings\SUUpdateAlertWindowStrings.resx" />
+    <EmbeddedResource Include="Strings\English UI Strings\SUUpdateAlertWindowViewStrings.resx" />
+    <EmbeddedResource Include="Strings\English UI Strings\SUUpdatePermissionPromptViewStrings.resx" />
+    <EmbeddedResource Include="Strings\English UI Strings\SUUpdatePermissionPromptWindowStrings.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

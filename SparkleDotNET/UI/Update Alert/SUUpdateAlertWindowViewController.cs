@@ -9,7 +9,7 @@ using System.Windows.Threading;
 using KNFoundation;
 using KNFoundation.KNKVC;
 
-namespace SparkleDotNET.UI.Update_Alert {
+namespace SparkleDotNET {
     class SUUpdateAlertWindowViewController : KNViewController, KNKVOObserver {
 
         private SUHost host;

@@ -117,19 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CheckAutomaticallyButton.Content" xml:space="preserve">
-    <value>Check Automatically</value>
+  <data name="InstallButton.Content" xml:space="preserve">
+    <value>Exit and Update</value>
   </data>
-  <data name="DontCheckButton.Content" xml:space="preserve">
-    <value>Don't Check</value>
+  <data name="KNStringTableRepresentedClass" xml:space="preserve">
+    <value>SparkleDotNET.SUUpdateAlertReadyToInstallView</value>
   </data>
-  <data name="ProfileExplanation.Text" xml:space="preserve">
-    <value>This is used to help us plan future development work. This is the information that would be sent:</value>
-  </data>
-  <data name="SendProfileCheck.Content" xml:space="preserve">
-    <value>Include anonymous system profile</value>
-  </data>
-  <data name="UpdateHeaderLabel.Text" xml:space="preserve">
-    <value>Check for updates automatically?</value>
+  <data name="ProgressLabel.Text" xml:space="preserve">
+    <value>Ready to update!</value>
   </data>
 </root>

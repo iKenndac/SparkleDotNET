@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using KNFoundation;
 using KNFoundation.KNKVC;
 
-namespace SparkleDotNET.UI.Update_Alert {
+namespace SparkleDotNET {
 
     public interface SUUpdateAlertDegate {
 

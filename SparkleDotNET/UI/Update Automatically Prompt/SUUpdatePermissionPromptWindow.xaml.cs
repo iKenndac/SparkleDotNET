@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SparkleDotNET.UI.Update_Automatically_Prompt {
+namespace SparkleDotNET {
     /// <summary>
     /// Interaction logic for SUUpdatePermissionPromptWindow.xaml
     /// </summary>

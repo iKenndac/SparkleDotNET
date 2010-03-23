@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using SparkleDotNET.UI.Update_Alert;
+using SparkleDotNET;
 
 namespace SparkleDotNET {
     class SUUIBasedUpdateDriver : SUBasicUpdateDriver, SUUpdateAlertDegate {

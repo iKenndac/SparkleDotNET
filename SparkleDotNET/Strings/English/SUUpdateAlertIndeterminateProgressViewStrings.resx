@@ -117,10 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="InstallButton.Content" xml:space="preserve">
-    <value>Exit and Update</value>
+  <data name="CancelButton.Content" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="KNStringTableRepresentedClass" xml:space="preserve">
+    <value>SparkleDotNET.SUUpdateAlertIndeterminateProgressView</value>
   </data>
   <data name="ProgressLabel.Text" xml:space="preserve">
-    <value>Ready to update!</value>
+    <value>Verifying...</value>
   </data>
 </root>

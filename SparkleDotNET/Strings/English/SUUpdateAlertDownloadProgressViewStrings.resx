@@ -117,109 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name=".NET Version" xml:space="preserve">
-    <value>.NET Version</value>
+  <data name="CancelButton.Content" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="Application Name" xml:space="preserve">
-    <value>Application Name</value>
+  <data name="KNStringTableRepresentedClass" xml:space="preserve">
+    <value>SparkleDotNET.SUUpdateAlertDownloadProgressView</value>
   </data>
-  <data name="Application Version" xml:space="preserve">
-    <value>Application Version</value>
-  </data>
-  <data name="Byte Unit" xml:space="preserve">
-    <value> Bytes</value>
-  </data>
-  <data name="com.Sparkle.DownloadFailedError" xml:space="preserve">
-    <value>An error occurred while downloading the update. Please try again later.</value>
-  </data>
-  <data name="com.Sparkle.ExtractionFailedError" xml:space="preserve">
-    <value>An error occurred while extracting the archive. Please try again later.</value>
-  </data>
-  <data name="com.Sparkle.InstallerFailedToLaunch" xml:space="preserve">
-    <value>An error occurred while installing the update. Please try again later.</value>
-  </data>
-  <data name="com.Sparkle.NoFeedURL" xml:space="preserve">
-    <value>An error occurred in retrieving update information. Please try again later.</value>
-  </data>
-  <data name="com.Sparkle.NoInstallerError" xml:space="preserve">
-    <value>An error occurred while installing the update. Please try again later.</value>
-  </data>
-  <data name="com.Sparkle.NoUpdate" xml:space="preserve">
-    <value>You're up to date!</value>
-  </data>
-  <data name="com.Sparkle.SignatureError" xml:space="preserve">
-    <value>An error occurred while extracting the archive. Please try again later.</value>
-  </data>
-  <data name="CPU is 64-Bit?" xml:space="preserve">
-    <value>CPU is 64-Bit?</value>
-  </data>
-  <data name="Downloading Status" xml:space="preserve">
-    <value>Downloading {0} of {1}...</value>
-  </data>
-  <data name="Downloading update..." xml:space="preserve">
+  <data name="ProgressLabel.Text" xml:space="preserve">
     <value>Downloading update...</value>
-  </data>
-  <data name="Extracting..." xml:space="preserve">
-    <value>Extracting...</value>
-  </data>
-  <data name="Generic Error Message" xml:space="preserve">
-    <value>An error occurred while updating. Please try again later.</value>
-  </data>
-  <data name="Gigabyte Unit" xml:space="preserve">
-    <value> GB</value>
-  </data>
-  <data name="Help" xml:space="preserve">
-    <value>Help</value>
-  </data>
-  <data name="Kilobyte Unit" xml:space="preserve">
-    <value> KB</value>
-  </data>
-  <data name="Megabyte Unit" xml:space="preserve">
-    <value> MB</value>
-  </data>
-  <data name="Memory (MB)" xml:space="preserve">
-    <value>Memory (MB)</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="Number of CPUs" xml:space="preserve">
-    <value>Number of CPUs</value>
-  </data>
-  <data name="OS Version" xml:space="preserve">
-    <value>OS Version</value>
-  </data>
-  <data name="Terabyte Unit" xml:space="preserve">
-    <value> TB</value>
-  </data>
-  <data name="unknown" xml:space="preserve">
-    <value>unknown</value>
-  </data>
-  <data name="Up To Date" xml:space="preserve">
-    <value>Up To Date</value>
-  </data>
-  <data name="Update Automatically Prompt Header" xml:space="preserve">
-    <value>Should {0} automatically check for updates? You can always check for updates manually in the {1} menu.</value>
-  </data>
-  <data name="Update Failed" xml:space="preserve">
-    <value>Update Failed</value>
-  </data>
-  <data name="Updated Cannot Be Cancelled" xml:space="preserve">
-    <value>The update cannot be cancelled at this time.</value>
-  </data>
-  <data name="Verifying..." xml:space="preserve">
-    <value>Verifying...</value>
-  </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
-  </data>
-  <data name="Update Available Detail" xml:space="preserve">
-    <value>{0} {1} is available - you have {2}. Would you like to download it now?</value>
-  </data>
-  <data name="Update Available Extra Detail" xml:space="preserve">
-    <value>{0} {1} ({3}) is available - you have {2} ({4}). Would you like to download it now?</value>
-  </data>
-  <data name="Update Available Header" xml:space="preserve">
-    <value>A new version of {0} is available!</value>
   </data>
 </root>
