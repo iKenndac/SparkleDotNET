@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="Installation\SUExecutableInstaller.cs" />
     <Compile Include="Installation\SUMSIInstaller.cs" />
-    <Compile Include="Strings\SULocalizedStrings.cs" />
+    <Compile Include="Localization\SULocalizedStrings.cs" />
     <Compile Include="SUConstants.cs" />
     <Compile Include="SUAppcast.cs" />
     <Compile Include="SUDSAVerifier.cs" />
@@ -139,18 +139,39 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Strings\English UI Strings\SparkleStrings.resx">
+    <EmbeddedResource Include="Localization\Sample Strings\SparkleStrings.resx" />
+    <EmbeddedResource Include="Localization\Sample Strings\SUUpdateAlertActionButtonsViewStrings.resx" />
+    <EmbeddedResource Include="Localization\Sample Strings\SUUpdateAlertDownloadProgressViewStrings.resx" />
+    <EmbeddedResource Include="Localization\Sample Strings\SUUpdateAlertIndeterminateProgressViewStrings.resx" />
+    <EmbeddedResource Include="Localization\Sample Strings\SUUpdateAlertReadyToInstallViewStrings.resx" />
+    <EmbeddedResource Include="Localization\Sample Strings\SUUpdateAlertWindowStrings.resx" />
+    <EmbeddedResource Include="Localization\Sample Strings\SUUpdateAlertWindowViewStrings.resx" />
+    <EmbeddedResource Include="Localization\Sample Strings\SUUpdatePermissionPromptViewStrings.resx" />
+    <EmbeddedResource Include="Localization\Sample Strings\SUUpdatePermissionPromptWindowStrings.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SparkleStrings.fr-FR.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Strings\English UI Strings\SUUpdateAlertActionButtonsViewStrings.resx" />
-    <EmbeddedResource Include="Strings\English UI Strings\SUUpdateAlertDownloadProgressViewStrings.resx" />
-    <EmbeddedResource Include="Strings\English UI Strings\SUUpdateAlertIndeterminateProgressViewStrings.resx" />
-    <EmbeddedResource Include="Strings\English UI Strings\SUUpdateAlertReadyToInstallViewStrings.resx" />
-    <EmbeddedResource Include="Strings\English UI Strings\SUUpdateAlertWindowStrings.resx" />
-    <EmbeddedResource Include="Strings\English UI Strings\SUUpdateAlertWindowViewStrings.resx" />
-    <EmbeddedResource Include="Strings\English UI Strings\SUUpdatePermissionPromptViewStrings.resx" />
-    <EmbeddedResource Include="Strings\English UI Strings\SUUpdatePermissionPromptWindowStrings.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertActionButtonsViewStrings.fr-FR.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertDownloadProgressViewStrings.fr-FR.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertIndeterminateProgressViewStrings.fr-FR.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertReadyToInstallViewStrings.fr-FR.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertWindowStrings.fr-FR.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertWindowViewStrings.fr-FR.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdatePermissionPromptViewStrings.fr-FR.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdatePermissionPromptWindowStrings.fr-FR.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SparkleStrings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertActionButtonsViewStrings.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertDownloadProgressViewStrings.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertIndeterminateProgressViewStrings.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertReadyToInstallViewStrings.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertWindowStrings.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertWindowViewStrings.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdatePermissionPromptViewStrings.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdatePermissionPromptWindowStrings.resx" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

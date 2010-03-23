@@ -61,6 +61,8 @@ namespace SparkleDotNET {
 
         private SUUpdater(KNBundle aBundle) {
 
+            KNBundle bundle = KNBundle.BundleWithAssembly(Assembly.GetAssembly(this.GetType()));
+
             if (aBundle == null) {
                 aBundle = KNBundle.MainBundle();
             }
