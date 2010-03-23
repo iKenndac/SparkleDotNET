@@ -53,7 +53,7 @@ namespace SparkleDotNET {
             //.NET version
 
             string frameworkVersion = Environment.Version.ToString();
-            profile.Add(DictionaryForProfileItem("runtimeVersion", SULocalizedStrings.StringForKey(".NET Version"), frameworkVersion, frameworkVersion));
+            profile.Add(DictionaryForProfileItem("dotNetVersion", SULocalizedStrings.StringForKey(".NET Version"), frameworkVersion, frameworkVersion));
 
             // 64-bit?
 
