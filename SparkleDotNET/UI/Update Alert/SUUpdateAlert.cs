@@ -100,7 +100,9 @@ namespace SparkleDotNET {
 
         public void ForceClose() {
             status = WindowStatus.UpdateAborted;
-            Window.Close();
+            try {
+                Window.Close();
+            } catch { }
         }
 
         public SUUpdateAlertDegate Delegate {

@@ -53,6 +53,62 @@
     <Compile Include="Installation\SUExecutableInstaller.cs" />
     <Compile Include="Installation\SUMSIInstaller.cs" />
     <Compile Include="Localization\SULocalizedStrings.cs" />
+    <Compile Include="SharpZLib\BZip2\BZip2.cs" />
+    <Compile Include="SharpZLib\BZip2\BZip2Constants.cs" />
+    <Compile Include="SharpZLib\BZip2\BZip2Exception.cs" />
+    <Compile Include="SharpZLib\BZip2\BZip2InputStream.cs" />
+    <Compile Include="SharpZLib\BZip2\BZip2OutputStream.cs" />
+    <Compile Include="SharpZLib\Checksums\Adler32.cs" />
+    <Compile Include="SharpZLib\Checksums\CRC32.cs" />
+    <Compile Include="SharpZLib\Checksums\IChecksum.cs" />
+    <Compile Include="SharpZLib\Checksums\StrangeCRC.cs" />
+    <Compile Include="SharpZLib\Core\FileSystemScanner.cs" />
+    <Compile Include="SharpZLib\Core\INameTransform.cs" />
+    <Compile Include="SharpZLib\Core\IScanFilter.cs" />
+    <Compile Include="SharpZLib\Core\NameFilter.cs" />
+    <Compile Include="SharpZLib\Core\PathFilter.cs" />
+    <Compile Include="SharpZLib\Core\StreamUtils.cs" />
+    <Compile Include="SharpZLib\Core\WindowsPathUtils.cs" />
+    <Compile Include="SharpZLib\Encryption\PkzipClassic.cs" />
+    <Compile Include="SharpZLib\GZip\GZIPConstants.cs" />
+    <Compile Include="SharpZLib\GZip\GZipException.cs" />
+    <Compile Include="SharpZLib\GZip\GzipInputStream.cs" />
+    <Compile Include="SharpZLib\GZip\GzipOutputStream.cs" />
+    <Compile Include="SharpZLib\SharpZipBaseException.cs" />
+    <Compile Include="SharpZLib\Tar\InvalidHeaderException.cs" />
+    <Compile Include="SharpZLib\Tar\TarArchive.cs" />
+    <Compile Include="SharpZLib\Tar\TarBuffer.cs" />
+    <Compile Include="SharpZLib\Tar\TarEntry.cs" />
+    <Compile Include="SharpZLib\Tar\TarException.cs" />
+    <Compile Include="SharpZLib\Tar\TarHeader.cs" />
+    <Compile Include="SharpZLib\Tar\TarInputStream.cs" />
+    <Compile Include="SharpZLib\Tar\TarOutputStream.cs" />
+    <Compile Include="SharpZLib\Zip\Compression\Deflater.cs" />
+    <Compile Include="SharpZLib\Zip\Compression\DeflaterConstants.cs" />
+    <Compile Include="SharpZLib\Zip\Compression\DeflaterEngine.cs" />
+    <Compile Include="SharpZLib\Zip\Compression\DeflaterHuffman.cs" />
+    <Compile Include="SharpZLib\Zip\Compression\DeflaterPending.cs" />
+    <Compile Include="SharpZLib\Zip\Compression\Inflater.cs" />
+    <Compile Include="SharpZLib\Zip\Compression\InflaterDynHeader.cs" />
+    <Compile Include="SharpZLib\Zip\Compression\InflaterHuffmanTree.cs" />
+    <Compile Include="SharpZLib\Zip\Compression\PendingBuffer.cs" />
+    <Compile Include="SharpZLib\Zip\Compression\Streams\DeflaterOutputStream.cs" />
+    <Compile Include="SharpZLib\Zip\Compression\Streams\InflaterInputStream.cs" />
+    <Compile Include="SharpZLib\Zip\Compression\Streams\OutputWindow.cs" />
+    <Compile Include="SharpZLib\Zip\Compression\Streams\StreamManipulator.cs" />
+    <Compile Include="SharpZLib\Zip\FastZip.cs" />
+    <Compile Include="SharpZLib\Zip\IEntryFactory.cs" />
+    <Compile Include="SharpZLib\Zip\WindowsNameTransform.cs" />
+    <Compile Include="SharpZLib\Zip\ZipConstants.cs" />
+    <Compile Include="SharpZLib\Zip\ZipEntry.cs" />
+    <Compile Include="SharpZLib\Zip\ZipEntryFactory.cs" />
+    <Compile Include="SharpZLib\Zip\ZipException.cs" />
+    <Compile Include="SharpZLib\Zip\ZipExtraData.cs" />
+    <Compile Include="SharpZLib\Zip\ZipFile.cs" />
+    <Compile Include="SharpZLib\Zip\ZipHelperStream.cs" />
+    <Compile Include="SharpZLib\Zip\ZipInputStream.cs" />
+    <Compile Include="SharpZLib\Zip\ZipNameTransform.cs" />
+    <Compile Include="SharpZLib\Zip\ZipOutputStream.cs" />
     <Compile Include="SUConstants.cs" />
     <Compile Include="SUAppcast.cs" />
     <Compile Include="SUDSAVerifier.cs" />
@@ -94,7 +150,9 @@
       <DependentUpon>SUUpdatePermissionPromptWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Update Automatically Prompt\SUUpdatePermissionPromptWindowController.cs" />
+    <Compile Include="Unarchiving\SUExeUnarchiver.cs" />
     <Compile Include="Unarchiving\SUUnarchiver.cs" />
+    <Compile Include="Unarchiving\SUZipUnarchiver.cs" />
     <Compile Include="Update Drivers\SUBasicUpdateDriver.cs" />
     <Compile Include="Update Drivers\SUProbingUpdateDriver.cs" />
     <Compile Include="Update Drivers\SUScheduledUpdateDriver.cs" />
@@ -148,17 +206,6 @@
     <EmbeddedResource Include="Localization\Sample Strings\SUUpdateAlertWindowViewStrings.resx" />
     <EmbeddedResource Include="Localization\Sample Strings\SUUpdatePermissionPromptViewStrings.resx" />
     <EmbeddedResource Include="Localization\Sample Strings\SUUpdatePermissionPromptWindowStrings.resx" />
-    <EmbeddedResource Include="Localization\Actual Strings\SparkleStrings.fr-FR.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertActionButtonsViewStrings.fr-FR.resx" />
-    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertDownloadProgressViewStrings.fr-FR.resx" />
-    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertIndeterminateProgressViewStrings.fr-FR.resx" />
-    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertReadyToInstallViewStrings.fr-FR.resx" />
-    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertWindowStrings.fr-FR.resx" />
-    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertWindowViewStrings.fr-FR.resx" />
-    <EmbeddedResource Include="Localization\Actual Strings\SUUpdatePermissionPromptViewStrings.fr-FR.resx" />
-    <EmbeddedResource Include="Localization\Actual Strings\SUUpdatePermissionPromptWindowStrings.fr-FR.resx" />
     <EmbeddedResource Include="Localization\Actual Strings\SparkleStrings.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -171,7 +218,9 @@
     <EmbeddedResource Include="Localization\Actual Strings\SUUpdatePermissionPromptViewStrings.resx" />
     <EmbeddedResource Include="Localization\Actual Strings\SUUpdatePermissionPromptWindowStrings.resx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="License.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

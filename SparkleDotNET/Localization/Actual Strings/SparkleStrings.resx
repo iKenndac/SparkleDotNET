@@ -225,4 +225,7 @@
   <data name="KNStringTableRepresentedClass" xml:space="preserve">
     <value>SparkleDotNET.Strings.SparkleStrings</value>
   </data>
+  <data name="com.Sparkle.NoUnarchiverError" xml:space="preserve">
+    <value>An error occurred while extracting the archive. Please try again later.</value>
+  </data>
 </root>

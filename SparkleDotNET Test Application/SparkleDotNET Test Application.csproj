@@ -90,6 +90,9 @@
     <Content Include="Sample Files\Sample Release Notes\rnotes.html">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Resources\Update Signing Public Key.sparklePublicKey">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="SparkleDotNET Todo.txt" />
     <Resource Include="Sample Files\Sample Appcast.xml" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -107,9 +110,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Resources\PropertyList-1.0.dtd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Update Signing Public Key.sparklePublicKey">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -9,7 +9,7 @@ using KNFoundation.KNKVC;
 using SparkleDotNET;
 
 namespace SparkleDotNET {
-    class SUBasicUpdateDriver : SUUpdateDriver, SUAppcastDelegate {
+    class SUBasicUpdateDriver : SUUpdateDriver, SUAppcastDelegate, SUUnarchiverDelegate {
 
         protected SUAppcastItem updateItem;
         private WebClient download;
@@ -285,24 +285,48 @@ namespace SparkleDotNET {
         }
 
         protected virtual void ExtractUpdate() {
-            ExtractUpdateCompleted(downloadPath);
+
+            SUUnarchiver unarchiver = SUUnarchiver.UnarchiverForPath(downloadPath);
+
+            if (unarchiver == null) {
+                AbortUpdateWithError(new Exception(SUConstants.SUNoUnarchiverError));
+            } else {
+
+                unarchiver.Delegate = this;
+                unarchiver.Start(updateItem, downloadPath);
+            }
+        }
+
+        public void UnarchiverDidFinish(SUUnarchiver unarchiver, string extractedFilesPath) {
+            ExtractUpdateCompleted(extractedFilesPath);
+        }
+
+        public void UnarchiverDidFail(SUUnarchiver unarchiver) {
+            AbortUpdateWithError(new Exception(SUConstants.SUExtractionFailedError));
         }
 
         protected virtual void ExtractUpdateCompleted(string extractPath) {
             extractedFilePath = extractPath;
-
         }
 
         protected virtual void InstallUpdate() {
 
+            if (String.IsNullOrWhiteSpace(extractedFilePath) || !(File.Exists(extractedFilePath) || Directory.Exists(extractedFilePath))) {
+                AbortUpdateWithError(new Exception(SUConstants.SUInstallerFailedToLaunchError));
+                return;
+            }
+
             SUInstaller installer = null;
+            string installationFilePath = extractedFilePath;
 
-            if (Directory.Exists(extractedFilePath)) {
-
+            FileAttributes attr = File.GetAttributes(extractedFilePath);
+            if ((attr & FileAttributes.Directory) == FileAttributes.Directory) {
                 // Look for specified file if it exists
 
                 if (updateItem.PrimaryInstallationFile != null) {
-                    installer = SUInstaller.InstallerForFile(Path.Combine(extractedFilePath, updateItem.PrimaryInstallationFile));
+
+                    installationFilePath = Path.Combine(extractedFilePath, updateItem.PrimaryInstallationFile);
+                    installer = SUInstaller.InstallerForFile(installationFilePath);
 
                 } else {
                     string[] files = Directory.GetFiles(extractedFilePath);
@@ -312,6 +336,7 @@ namespace SparkleDotNET {
                             string filePath = Path.Combine(extractedFilePath, file);
                             installer = SUInstaller.InstallerForFile(filePath);
                             if (installer != null) {
+                                installationFilePath = filePath;
                                 break;
                             }
                         }
@@ -323,7 +348,7 @@ namespace SparkleDotNET {
 
             if (installer != null) {
 
-                if (installer.BeginInstallationOfItemFromPath(updateItem, extractedFilePath)) {
+                if (installer.BeginInstallationOfItemFromPath(updateItem, installationFilePath)) {
                     Host.SetObjectForUserDefaultsKey(extractedFilePath, SUConstants.SUExtractedFilesForCleanupKey);
                     RemoveDownloadedFiles();
 

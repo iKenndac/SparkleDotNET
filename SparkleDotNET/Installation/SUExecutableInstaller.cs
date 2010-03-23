@@ -10,14 +10,15 @@ namespace SparkleDotNET {
 
         public override bool BeginInstallationOfItemFromPath(SUAppcastItem item, string path) {
             
-            if (String.IsNullOrWhiteSpace(path) || item == null) {
+            if (String.IsNullOrWhiteSpace(path) || item == null || !File.Exists(path)) {
                 return false;
             }
 
-            if (Directory.Exists(path)) {
+            FileAttributes attr = File.GetAttributes(path);
+            if ((attr & FileAttributes.Directory) == FileAttributes.Directory) {
 
-                if (!String.IsNullOrWhiteSpace(item.PrimaryInstallationFile) && 
-                    File.Exists(Path.Combine(path, item.PrimaryInstallationFile))) {
+                if (!String.IsNullOrWhiteSpace(item.PrimaryInstallationFile) &&
+                                    File.Exists(Path.Combine(path, item.PrimaryInstallationFile))) {
                     path = Path.Combine(path, item.PrimaryInstallationFile);
                 }
 

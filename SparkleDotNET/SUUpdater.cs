@@ -74,6 +74,10 @@ namespace SparkleDotNET {
             SUInstaller.AddInstallerForFileType(new SUExecutableInstaller(), ".exe");
             SUInstaller.AddInstallerForFileType(new SUMSIInstaller(), ".msi");
 
+            SUUnarchiver.AddUnarchiverForFileType(new SUZipUnarchiver(), ".zip");
+            SUUnarchiver.AddUnarchiverForFileType(new SUExeUnarchiver(), ".exe");
+            SUUnarchiver.AddUnarchiverForFileType(new SUExeUnarchiver(), ".msi");
+
             sharedUpdaters.Add(aBundle, this);
             host = new SUHost(aBundle);
 
@@ -83,8 +87,16 @@ namespace SparkleDotNET {
                 string path = (string)host.ObjectForUserDefaultsKey(SUConstants.SUExtractedFilesForCleanupKey);
 
                 try {
-                    File.Delete(path);
+
+                    FileAttributes attr = File.GetAttributes(path);
+                    if ((attr & FileAttributes.Directory) == FileAttributes.Directory) {
+                        Directory.Delete(path, true);
+                    } else {
+                        File.Delete(path);
+                    }
                 } catch {
+                } finally {
+                    host.SetObjectForUserDefaultsKey(null, SUConstants.SUExtractedFilesForCleanupKey);
                 }
             }
 
