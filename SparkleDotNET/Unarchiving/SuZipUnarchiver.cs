@@ -46,15 +46,18 @@ namespace SparkleDotNET {
 
                 if (!String.IsNullOrWhiteSpace(fileName)) {
 
-                    FileStream writer = File.Create(Path.Combine(extractionPath, directoryName, fileName));
+                    using (FileStream writer = File.Create(Path.Combine(Path.Combine(extractionPath, directoryName), fileName)))
+                    {
+                        int readSize = 2048;
+                        byte[] data = new byte[readSize];
 
-                    int readSize = 2048;
-                    byte[] data = new byte[readSize];
-
-                    while (readSize > 0) {
-                        readSize = input.Read(data, 0, data.Length);
-                        if (readSize > 0) {
-                            writer.Write(data, 0, readSize);
+                        while (readSize > 0)
+                        {
+                            readSize = input.Read(data, 0, data.Length);
+                            if (readSize > 0)
+                            {
+                                writer.Write(data, 0, readSize);
+                            }
                         }
                     }
                 }
