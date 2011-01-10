@@ -17,7 +17,7 @@ namespace SparkleDotNET {
 
     public class SUAppcast {
 
-        ArrayList items;
+        List<SUAppcastItem> items;
         string userAgentString;
         SUAppcastDelegate appcastDelegate;
 
@@ -43,7 +43,7 @@ namespace SparkleDotNET {
             }
         }
 
-        public ArrayList Items {
+        public List<SUAppcastItem> Items {
             get { return items; }
             private set {
                 this.WillChangeValueForKey("Items");
@@ -81,7 +81,7 @@ namespace SparkleDotNET {
                     return;
                 }
 
-                ArrayList appcastItems = new ArrayList();
+                List<SUAppcastItem> appcastItems = new List<SUAppcastItem>();
 
                 foreach (XmlNode node in xmlItems) {
 
