@@ -211,6 +211,18 @@ namespace SparkleDotNET {
             }
         }
 
+        public DateTime LastProfileSubmitDate {
+            get {
+                return host.LastProfileSubmitDate;
+            }
+
+            set {
+                this.WillChangeValueForKey("LastProfileSubmitDate");
+                host.LastProfileSubmitDate = value;
+                this.DidChangeValueForKey("LastProfileSubmitDate");
+            }
+        }
+
         public bool SendsSystemProfile {
             get {
                 object value = host.ObjectForUserDefaultsKey(SUConstants.SUSendProfileInfoKey);
@@ -325,11 +337,13 @@ namespace SparkleDotNET {
         
         private string ParameterizedFeedURL() {
 
-           // Only send parameters weekly to help normalise data
+            // Let's only send the system profiling information once per week at most, so we normalize daily-checkers vs. biweekly-checkers and the such.
 
-            if (!SendsSystemProfile || !LastUpdateWasMoreThanAWeekAgo()) {
+            if (!SendsSystemProfile || !LastProfileSubmitWasMoreThanAWeekAgo()) {
                 return FeedURL;
             } else {
+
+                host.LastProfileSubmitDate = DateTime.Now;
 
                 ArrayList parameterStrings = new ArrayList();
 
@@ -363,11 +377,11 @@ namespace SparkleDotNET {
             }
         }
 
-        private bool LastUpdateWasMoreThanAWeekAgo() {
+        private bool LastProfileSubmitWasMoreThanAWeekAgo() {
 
-            DateTime lastUpdate = LastUpdateCheckDate;
+            DateTime lastSubmitDate = LastProfileSubmitDate;
             const double oneWeek = 60 * 60 * 24 * 7;
-            return ((DateTime.Now - lastUpdate).TotalSeconds >= oneWeek);
+            return ((DateTime.Now - lastSubmitDate).TotalSeconds >= oneWeek);
         }
 
 

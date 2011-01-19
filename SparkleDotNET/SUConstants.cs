@@ -8,6 +8,7 @@ namespace SparkleDotNET {
     public class SUConstants {
 
         public const string SULastCheckTimeKey = "SULastCheckTime";
+        public const string SULastProfileSubmitDateKey = "SULastProfileSubmitDate";
         public const string SUPublicDSAKeyKey = "SUPublicDSAKey";
         public const string SUPublicDSAKeyFileKey = "SUPublicDSAKeyFile";
         public const string SUNoUpdateError = "com.Sparkle.NoUpdate";

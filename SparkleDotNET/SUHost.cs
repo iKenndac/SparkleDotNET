@@ -114,6 +114,20 @@ namespace SparkleDotNET {
             }
         }
 
+        public DateTime LastProfileSubmitDate {
+            get {
+                object value = ObjectForUserDefaultsKey(SUConstants.SULastProfileSubmitDateKey);
+                if (value != null) {
+                    return (DateTime)value;
+                }
+
+                return DateTime.MinValue;
+            }
+            set {
+                SetObjectForUserDefaultsKey(value, SUConstants.SULastProfileSubmitDateKey);
+            }
+        }
+
 
         public string PublicDSAKey {
             get {
