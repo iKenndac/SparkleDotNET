@@ -313,11 +313,11 @@ namespace SparkleDotNET {
                 checkTimer.Stop();
                 checkTimer = null;
             }
-
-            host.LastUpdateCheckDate = DateTime.Now;
             
             driver = aDriver;
             driver.CheckForUpdatesAtURLWithHost(ParameterizedFeedURL(), host);
+
+            host.LastUpdateCheckDate = DateTime.Now;
 
             ResetUpdateCycle();
         }
@@ -354,8 +354,6 @@ namespace SparkleDotNET {
                         url = string.Concat(url, divider, item);
                         divider = "&";
                     }
-
-                    System.Windows.MessageBox.Show(url);
 
                     return url;
 
