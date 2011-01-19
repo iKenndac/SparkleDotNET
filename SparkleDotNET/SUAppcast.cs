@@ -141,6 +141,8 @@ namespace SparkleDotNET {
                 }
 
                 appcastItems.Sort();
+                appcastItems.Reverse(); // new to old
+
                 Items = appcastItems;
 
                 if (Delegate != null) {
