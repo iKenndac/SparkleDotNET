@@ -59,9 +59,9 @@ namespace SparkleDotNET {
             // 64-bit?
 
             if (Environment.Is64BitOperatingSystem) {
-                profile.Add(DictionaryForProfileItem("cpu64bit", SULocalizedStrings.StringForKey("CPU is 64-Bit?"), "true", SULocalizedStrings.StringForKey("Yes")));
+                profile.Add(DictionaryForProfileItem("cpu64bit", SULocalizedStrings.StringForKey("CPU is 64-Bit?"), "1", SULocalizedStrings.StringForKey("Yes")));
             } else {
-                profile.Add(DictionaryForProfileItem("cpu64bit", SULocalizedStrings.StringForKey("CPU is 64-Bit?"), "false", SULocalizedStrings.StringForKey("No")));
+                profile.Add(DictionaryForProfileItem("cpu64bit", SULocalizedStrings.StringForKey("CPU is 64-Bit?"), "0", SULocalizedStrings.StringForKey("No")));
             }
 
             // CPU Count
