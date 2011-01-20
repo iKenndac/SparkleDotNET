@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
@@ -50,7 +51,7 @@ namespace SparkleDotNET {
             string version = Environment.OSVersion.ToString();
             profile.Add(DictionaryForProfileItem("osVersion", SULocalizedStrings.StringForKey("OS Version"), version, version));
 
-            //.NET version
+            // .NET version
 
             string frameworkVersion = Environment.Version.ToString();
             profile.Add(DictionaryForProfileItem("dotNetVersion", SULocalizedStrings.StringForKey(".NET Version"), frameworkVersion, frameworkVersion));
@@ -76,6 +77,10 @@ namespace SparkleDotNET {
             }
 
             profile.Add(DictionaryForProfileItem("ramMB", SULocalizedStrings.StringForKey("Memory (MB)"), installedMemory.ToString(), installedMemory.ToString()));
+
+            // User preferred language
+
+            profile.Add(DictionaryForProfileItem("lang", SULocalizedStrings.StringForKey("Preferred Language"), CultureInfo.CurrentCulture.TwoLetterISOLanguageName, CultureInfo.CurrentCulture.TwoLetterISOLanguageName));
 
             return profile;
         }

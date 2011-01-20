@@ -228,4 +228,7 @@
   <data name="com.Sparkle.NoUnarchiverError" xml:space="preserve">
     <value>An error occurred while extracting the archive. Please try again later.</value>
   </data>
+  <data name="Preferred Language" xml:space="preserve">
+    <value>Preferred Language</value>
+  </data>
 </root>
