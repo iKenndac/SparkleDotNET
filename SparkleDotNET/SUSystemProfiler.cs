@@ -68,6 +68,13 @@ namespace SparkleDotNET {
 
             profile.Add(DictionaryForProfileItem("ncpu", SULocalizedStrings.StringForKey("Number of CPUs"), Environment.ProcessorCount.ToString(), Environment.ProcessorCount.ToString()));
 
+            // CPU Speed
+
+            using (ManagementObject mObj = new ManagementObject("Win32_Processor.DeviceID='CPU0'")) {
+                uint sp = (uint)mObj["CurrentClockSpeed"];
+                profile.Add(DictionaryForProfileItem("cpuFreqMHz", SULocalizedStrings.StringForKey("CPU Speed (GHz)"), sp.ToString(), ((double)sp / 1000.0).ToString()));
+            }
+
             // RAM
 
             ulong installedMemory = 0;
