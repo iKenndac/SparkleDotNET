@@ -201,7 +201,9 @@
     <EmbeddedResource Include="Localization\Sample Strings\SUUpdateAlertActionButtonsViewStrings.resx" />
     <EmbeddedResource Include="Localization\Sample Strings\SUUpdateAlertDownloadProgressViewStrings.resx" />
     <EmbeddedResource Include="Localization\Sample Strings\SUUpdateAlertIndeterminateProgressViewStrings.resx" />
-    <EmbeddedResource Include="Localization\Sample Strings\SUUpdateAlertReadyToInstallViewStrings.resx" />
+    <EmbeddedResource Include="Localization\Sample Strings\SUUpdateAlertReadyToInstallViewStrings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization\Sample Strings\SUUpdateAlertWindowStrings.resx" />
     <EmbeddedResource Include="Localization\Sample Strings\SUUpdateAlertWindowViewStrings.resx" />
     <EmbeddedResource Include="Localization\Sample Strings\SUUpdatePermissionPromptViewStrings.resx" />
@@ -212,7 +214,9 @@
     <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertActionButtonsViewStrings.resx" />
     <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertDownloadProgressViewStrings.resx" />
     <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertIndeterminateProgressViewStrings.resx" />
-    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertReadyToInstallViewStrings.resx" />
+    <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertReadyToInstallViewStrings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertWindowStrings.resx" />
     <EmbeddedResource Include="Localization\Actual Strings\SUUpdateAlertWindowViewStrings.resx" />
     <EmbeddedResource Include="Localization\Actual Strings\SUUpdatePermissionPromptViewStrings.resx" />

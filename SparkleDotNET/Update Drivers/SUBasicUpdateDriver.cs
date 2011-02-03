@@ -352,7 +352,16 @@ namespace SparkleDotNET {
                     Host.SetObjectForUserDefaultsKey(extractedFilePath, SUConstants.SUExtractedFilesForCleanupKey);
                     RemoveDownloadedFiles();
 
-                    System.Windows.Application.Current.Shutdown(0);
+                    try {
+                        System.Windows.Application.Current.Shutdown(0);
+                    } catch (Exception) {
+                        try {
+                            Environment.Exit(0);
+                        } catch (Exception e) {
+                            // We really should never be here!
+                            AbortUpdateWithError(e);
+                        }
+                    }
 
 
                 } else {
