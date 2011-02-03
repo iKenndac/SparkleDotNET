@@ -7,13 +7,13 @@
 	<key>KNBundleVersion</key>
     <string>1.0</string>
 	<key>KNBundleExecutable</key>
-    <string>SparkleDotNET Test Application.exe</string>
+    <string>SparkleDotNET Tools.exe</string>
 	<key>KNBundleIdentifier</key>
-    <string>com.kennettnet.SparkleDotNETTest</string>
+    <string>com.kennettnet.SparkleDotNETTools</string>
 	<key>KNBundleName</key>
-    <string>SparkleDotNET Test Application</string>
+    <string>SparkleDotNET Tools</string>
 	<key>KNBundleDisplayName</key>
-    <string>SparkleDotNET Test Application</string>
+    <string>SparkleDotNET Tools</string>
     <key>SUPublicDSAKeyFile</key>
     <string>Update Signing Public Key.sparklePublicKey</string>
     <key>SUFeedURL</key>

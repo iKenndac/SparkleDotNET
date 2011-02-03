@@ -1,12 +1,15 @@
 ﻿<Window x:Class="SparkleDotNET_Test_Application.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="SparkleDotNET Test App" Height="350" Width="525">
+        Title="SparkleDotNET Tools" Height="350" Width="525">
     <Grid>
         <Button Content="Check for Update" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="CheckForUpdateButton" VerticalAlignment="Bottom" Width="124" Click="button1_Click" />
-        <Label Content="Signing Tools" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" Width="164" FontWeight="Bold" />
-        <Button Content="Create Public/Private Key Pair..." Height="23" HorizontalAlignment="Left" Margin="40,46,0,0" Name="CreateKeysButton" VerticalAlignment="Top" Width="206" Click="CreateKeysButton_Click" />
-        <Button Content="Sign File..." Height="23" HorizontalAlignment="Left" Margin="40,75,0,0" Name="SignFileButton" VerticalAlignment="Top" Width="206" Click="SignFileButton_Click" />
-        <TextBox Height="57" HorizontalAlignment="Left" Margin="40,104,0,0" Name="SignatureBox" VerticalAlignment="Top" Width="206" TextWrapping="Wrap" />
+        <Button Content="Sign File..." Height="23" HorizontalAlignment="Left" Margin="217,69,0,0" Name="SignFileButton" VerticalAlignment="Top" Width="206" Click="SignFileButton_Click" />
+        <TextBox Height="57" HorizontalAlignment="Left" Margin="289,189,0,0" Name="SignatureBox" VerticalAlignment="Top" Width="206" TextWrapping="Wrap" />
+        <WindowsFormsHost HorizontalAlignment="Left" Name="KeyListHost" Width="200" Margin="0,0,0,26" />
+        <WindowsFormsHost Height="26" HorizontalAlignment="Left" Name="ButtonBarHost" VerticalAlignment="Bottom" Width="200" />
+        <Button Content="Add Key" Height="23" HorizontalAlignment="Left" Margin="206,285,0,0" Name="AddKeyButton" VerticalAlignment="Top" Width="75" Click="AddKey_Click" />
+        <Button Content="Export Private Key..." Height="23" HorizontalAlignment="Left" Margin="217,11,0,0" Name="ExportPrivateButton" VerticalAlignment="Top" Width="206" Click="ExportPrivateButton_Click" />
+        <Button Content="Export Public Key..." Height="23" HorizontalAlignment="Left" Margin="217,40,0,0" Name="ExportPublicButton" VerticalAlignment="Top" Width="206" Click="ExportPublicButton_Click" />
     </Grid>
 </Window>
