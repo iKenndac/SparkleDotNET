@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace SparkleDotNET {
 
-    class SUStandardVersionComparator : SUVersionComparison {
+    public class SUStandardVersionComparator : SUVersionComparison {
 
         private enum SUCharacterType {
             kNumberType,
