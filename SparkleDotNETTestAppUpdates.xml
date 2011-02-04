@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" 
+	xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"
+	xmlns:sparkleDotNET="http://www.kennettnet.co.uk/xml-namespaces/sparkleDotNET">
+    <channel> 
+        <title>SparkleDotNET Test Application Updates</title> 
+        <language>en</language> 
+        <item> 
+            <title>SparkleDotNET Test Application 1.0.1</title> 
+            <sparkle:releaseNotesLink>http://dbprocessor.kennettnet.co.uk/MusicRescueNotes/41.html</sparkle:releaseNotesLink>
+            <pubDate>Wed, 10 Mar 2010 10:45:00 +0000</pubDate> 
+            <enclosure sparkle:version="1.0.1" 
+			sparkle:shortVersionString="1.0.1" 
+			sparkle:dsaSignature="Z7JfTAYLk6WIh0oeqkAuT7THT5YvO0i6fWdau7KG+63G0mtEf9JiJQ=="
+			sparkleDotNET:executableType="InstallShieldSetup"
+			sparkleDotNET:primaryInstallationFile="musicrescuesetup.exe"
+			url="http://www.kennettnet.co.uk/products/musicrescue/files/musicrescuesetup.zip"
+			type="application/octet-stream"
+			length="(4989715"/> 
+        </item> 
+    </channel> 
+</rss>
