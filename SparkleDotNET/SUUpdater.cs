@@ -347,11 +347,23 @@ namespace SparkleDotNET {
 
                 List<string> parameterStrings = new List<string>();
 
-                foreach (Dictionary<string, string> item in SUSystemProfiler.SystemProfileForHost(host)) {
+                try {
 
-                    parameterStrings.Add(String.Format("{0}={1}",
-                        Uri.EscapeUriString((string)item.ValueForKey(SUConstants.SUProfileItemKeyKey)),
-                        Uri.EscapeUriString((string)item.ValueForKey(SUConstants.SUProfileItemValueKey))));
+                    foreach (Dictionary<string, string> item in SUSystemProfiler.SystemProfileForHost(host))
+                    {
+
+                        parameterStrings.Add(String.Format("{0}={1}",
+                            Uri.EscapeUriString((string)item.ValueForKey(SUConstants.SUProfileItemKeyKey)),
+                            Uri.EscapeUriString((string)item.ValueForKey(SUConstants.SUProfileItemValueKey))));
+                    }
+
+                } catch (Exception e) {
+
+                    if (e is System.Runtime.InteropServices.COMException)
+                        return FeedURL;
+                    else
+                        throw e;
+
                 }
 
                 if (parameterStrings.Count > 0) {
