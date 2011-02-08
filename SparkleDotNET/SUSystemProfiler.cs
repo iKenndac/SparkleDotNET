@@ -34,9 +34,9 @@ namespace SparkleDotNET {
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         static extern bool GlobalMemoryStatusEx([In, Out] MEMORYSTATUSEX lpBuffer);
 
-        public static ArrayList SystemProfileForHost(SUHost host) {
+        public static List<Dictionary<string, string>> SystemProfileForHost(SUHost host) {
 
-            ArrayList profile = new ArrayList();
+            List<Dictionary<string, string>> profile = new List<Dictionary<string, string>>();
 
             // App name
 

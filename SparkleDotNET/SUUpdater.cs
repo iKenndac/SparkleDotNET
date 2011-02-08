@@ -345,7 +345,7 @@ namespace SparkleDotNET {
 
                 host.LastProfileSubmitDate = DateTime.Now;
 
-                ArrayList parameterStrings = new ArrayList();
+                List<string> parameterStrings = new List<string>();
 
                 foreach (Dictionary<string, string> item in SUSystemProfiler.SystemProfileForHost(host)) {
 
