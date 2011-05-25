@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SparkleDotNET</RootNamespace>
     <AssemblyName>SparkleDotNET</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -42,7 +42,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
-    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -107,35 +106,57 @@
     <Compile Include="..\SparkleDotNET\SharpZLib\Zip\Compression\Streams\*.cs">
       <Link>SharpZLib\Zip\Compression\Streams\%(FileName)</Link>
     </Compile>
-    <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertReadyToInstallViewController.cs" />
+    <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertReadyToInstallViewController.cs">
+      <Link>UI\Update Alert\%(FileName)</Link>
+    </Compile>
     <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertReadyToInstallView.xaml.cs">
+      <Link>UI\Update Alert\%(FileName)</Link>
       <DependentUpon>SUUpdateAlertReadyToInstallView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertDownloadProgressViewController.cs" />
+    <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertDownloadProgressViewController.cs">
+      <Link>UI\Update Alert\%(FileName)</Link>
+    </Compile>
     <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertIndeterminateProgressView.xaml.cs">
+      <Link>UI\Update Alert\%(FileName)</Link>
       <DependentUpon>SUUpdateAlertIndeterminateProgressView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlert.cs" />
+    <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlert.cs">
+      <Link>UI\Update Alert\%(FileName)</Link>
+    </Compile>
     <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertActionButtonsView.xaml.cs">
+      <Link>UI\Update Alert\%(FileName)</Link>
       <DependentUpon>SUUpdateAlertActionButtonsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertActionButtonsViewController.cs" />
+    <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertActionButtonsViewController.cs">
+      <Link>UI\Update Alert\%(FileName)</Link>
+    </Compile>
     <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertDownloadProgressView.xaml.cs">
+      <Link>UI\Update Alert\%(FileName)</Link>
       <DependentUpon>SUUpdateAlertDownloadProgressView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertIndeterminateProgressViewController.cs" />
+    <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertIndeterminateProgressViewController.cs">
+      <Link>UI\Update Alert\%(FileName)</Link>
+    </Compile>
     <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertWindow.xaml.cs">
+      <Link>UI\Update Alert\%(FileName)</Link>
       <DependentUpon>SUUpdateAlertWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertWindowViewController.cs" />
+    <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertWindowViewController.cs">
+      <Link>UI\Update Alert\%(FileName)</Link>
+    </Compile>
     <Compile Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertWindowView.xaml.cs">
+      <Link>UI\Update Alert\%(FileName)</Link>
       <DependentUpon>SUUpdateAlertWindowView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\SparkleDotNET\UI\Update Automatically Prompt\SUUpdatePermissionPromptViewController.cs" />
+    <Compile Include="..\SparkleDotNET\UI\Update Automatically Prompt\SUUpdatePermissionPromptViewController.cs">
+      <Link>UI\Update Alert\%(FileName)</Link>
+    </Compile>
     <Compile Include="..\SparkleDotNET\UI\Update Automatically Prompt\SUUpdatePermissionPromptView.xaml.cs">
+      <Link>UI\Update Automatically Prompt\%(FileName)</Link>
       <DependentUpon>SUUpdatePermissionPromptView.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\SparkleDotNET\UI\Update Automatically Prompt\SUUpdatePermissionPromptWindow.xaml.cs">
+      <Link>UI\Update Automatically Prompt\%(FileName)</Link>
       <DependentUpon>SUUpdatePermissionPromptWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="..\SparkleDotNET\UI\Update Automatically Prompt\SUUpdatePermissionPromptWindowController.cs" />
@@ -148,38 +169,47 @@
     <Compile Include="..\SparkleDotNET\Version Comparison\*.cs">
       <Link>Version Comparison\%(FileName)</Link>
     </Compile>
+    <Compile Include="Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertReadyToInstallView.xaml">
+      <Link>UI\Update Alert\%(FileName)</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertIndeterminateProgressView.xaml">
+      <Link>UI\Update Alert\%(FileName)</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertActionButtonsView.xaml">
+      <Link>UI\Update Alert\%(FileName)</Link>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertDownloadProgressView.xaml">
+      <Link>UI\Update Alert\%(FileName)</Link>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertWindow.xaml">
+      <Link>UI\Update Alert\%(FileName)</Link>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="..\SparkleDotNET\UI\Update Alert\SUUpdateAlertWindowView.xaml">
+      <Link>UI\Update Alert\%(FileName)</Link>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="..\SparkleDotNET\UI\Update Automatically Prompt\SUUpdatePermissionPromptView.xaml">
+      <Link>UI\Update Automatically Prompt\%(FileName)</Link>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="..\SparkleDotNET\UI\Update Automatically Prompt\SUUpdatePermissionPromptWindow.xaml">
+      <Link>UI\Update Automatically Prompt\%(FileName)</Link>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
