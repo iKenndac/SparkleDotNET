@@ -40,11 +40,11 @@ namespace SparkleDotNET {
                 string directoryName = Path.GetDirectoryName(currentEntry.Name);
                 string fileName = Path.GetFileName(currentEntry.Name);
                 
-                if (!String.IsNullOrWhiteSpace(directoryName)) {
+                if (!Helpers.StringIsNullOrWhiteSpace(directoryName)) {
                     Directory.CreateDirectory(Path.Combine(extractionPath, directoryName));
                 }
 
-                if (!String.IsNullOrWhiteSpace(fileName)) {
+                if (!Helpers.StringIsNullOrWhiteSpace(fileName)) {
 
                     using (FileStream writer = File.Create(Path.Combine(Path.Combine(extractionPath, directoryName), fileName)))
                     {

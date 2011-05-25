@@ -25,7 +25,7 @@ namespace SparkleDotNET {
 
         private SUCharacterType TypeOfCharacter(string c) {
 
-            if (String.IsNullOrWhiteSpace(c)) {
+            if (Helpers.StringIsNullOrWhiteSpace(c)) {
                 return SUCharacterType.kStringType;
             } else if (c.Equals(".")) {
                 return SUCharacterType.kPeriodType;
@@ -47,7 +47,7 @@ namespace SparkleDotNET {
             SUCharacterType oldType, newType;
             ArrayList parts = new ArrayList();
 
-            if (string.IsNullOrWhiteSpace(version)) {
+            if (Helpers.StringIsNullOrWhiteSpace(version)) {
                 return parts;
             }
 
@@ -78,7 +78,7 @@ namespace SparkleDotNET {
 
         public int CompareVersionToVersion(string versionA, string versionB) {
 
-            if (String.IsNullOrWhiteSpace(versionA) || String.IsNullOrWhiteSpace(versionB)) {
+            if (Helpers.StringIsNullOrWhiteSpace(versionA) || Helpers.StringIsNullOrWhiteSpace(versionB)) {
                 return 0;
             }
 

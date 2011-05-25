@@ -132,14 +132,14 @@ namespace SparkleDotNET {
         public string PublicDSAKey {
             get {
                 string key = (string)bundle.InfoDictionary.ValueForKey(SUConstants.SUPublicDSAKeyKey);
-                if (!string.IsNullOrWhiteSpace(key)) {
+                if (!Helpers.StringIsNullOrWhiteSpace(key)) {
                     return key;
                 }
 
                 string keyFile = (string)bundle.InfoDictionary.ValueForKey(SUConstants.SUPublicDSAKeyFileKey);
-                if (!string.IsNullOrWhiteSpace(keyFile)) {
+                if (!Helpers.StringIsNullOrWhiteSpace(keyFile)) {
                     string keyFilePath = (string)bundle.PathForResourceOfType(keyFile, null);
-                    if (!string.IsNullOrWhiteSpace(keyFilePath) && File.Exists(keyFilePath)) {
+                    if (!Helpers.StringIsNullOrWhiteSpace(keyFilePath) && File.Exists(keyFilePath)) {
                         return File.ReadAllText(keyFilePath, Encoding.UTF8);
                     }
                 }

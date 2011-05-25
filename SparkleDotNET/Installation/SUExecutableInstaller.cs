@@ -10,14 +10,14 @@ namespace SparkleDotNET {
 
         public override bool BeginInstallationOfItemFromPath(SUAppcastItem item, string path) {
             
-            if (String.IsNullOrWhiteSpace(path) || item == null || !File.Exists(path)) {
+            if (Helpers.StringIsNullOrWhiteSpace(path) || item == null || !File.Exists(path)) {
                 return false;
             }
 
             FileAttributes attr = File.GetAttributes(path);
             if ((attr & FileAttributes.Directory) == FileAttributes.Directory) {
 
-                if (!String.IsNullOrWhiteSpace(item.PrimaryInstallationFile) &&
+                if (!Helpers.StringIsNullOrWhiteSpace(item.PrimaryInstallationFile) &&
                                     File.Exists(Path.Combine(path, item.PrimaryInstallationFile))) {
                     path = Path.Combine(path, item.PrimaryInstallationFile);
                 }
@@ -31,7 +31,7 @@ namespace SparkleDotNET {
 
             string switches = "";
 
-            if (!String.IsNullOrWhiteSpace(item.ExecutableType)) {
+            if (!Helpers.StringIsNullOrWhiteSpace(item.ExecutableType)) {
 
                 if (item.ExecutableType.Equals("InstallShieldSetup")) {
                     switches = "/S /v/qb";
