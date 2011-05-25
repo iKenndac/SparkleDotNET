@@ -60,7 +60,7 @@ namespace SparkleDotNET {
         public bool ItemContainsSkippedVersion(SUAppcastItem item) {
 
             string skippedVersion = (string)Host.ObjectForUserDefaultsKey(SUConstants.SUSkippedVersionKey);
-            if (!String.IsNullOrWhiteSpace(skippedVersion)) {
+            if (!Helpers.StringIsNullOrWhiteSpace(skippedVersion)) {
                 return VersionComparator().CompareVersionToVersion(item.VersionString, skippedVersion) <= 0;
             } else {
                 return false;
@@ -311,7 +311,7 @@ namespace SparkleDotNET {
 
         protected virtual void InstallUpdate() {
 
-            if (String.IsNullOrWhiteSpace(extractedFilePath) || !(File.Exists(extractedFilePath) || Directory.Exists(extractedFilePath))) {
+            if (Helpers.StringIsNullOrWhiteSpace(extractedFilePath) || !(File.Exists(extractedFilePath) || Directory.Exists(extractedFilePath))) {
                 AbortUpdateWithError(new Exception(SUConstants.SUInstallerFailedToLaunchError));
                 return;
             }

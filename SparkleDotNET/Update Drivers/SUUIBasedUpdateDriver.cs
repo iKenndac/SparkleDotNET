@@ -38,7 +38,7 @@ namespace SparkleDotNET {
             string message = SULocalizedStrings.StringForKey("Generic Error Message");
             string specificMessage = SULocalizedStrings.StringForKey(error.Message);
 
-            if (!String.IsNullOrWhiteSpace(specificMessage)) {
+            if (!Helpers.StringIsNullOrWhiteSpace(specificMessage)) {
                 message = specificMessage;
             }
 

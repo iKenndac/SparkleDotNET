@@ -25,15 +25,26 @@ namespace SparkleDotNET {
 
                 string systemInfo = "";
 
-                foreach (Dictionary<string, string> item in SUSystemProfiler.SystemProfileForHost(Host)) {
+                try {
 
-                    systemInfo = String.Concat(systemInfo, item.ValueForKey(SUConstants.SUProfileItemDisplayKeyKey), ": ",
-                        item.ValueForKey(SUConstants.SUProfileItemDisplayValueKey), Environment.NewLine);
+                    foreach (Dictionary<string, string> item in SUSystemProfiler.SystemProfileForHost(host))
+                    {
+
+                        systemInfo = String.Concat(systemInfo, item.ValueForKey(SUConstants.SUProfileItemDisplayKeyKey), ": ",
+                            item.ValueForKey(SUConstants.SUProfileItemDisplayValueKey), Environment.NewLine);
+
+                    }
+
+                    InfoBox.Text = systemInfo;
+
+                } catch (Exception e) {
+
+                    if (e is System.Runtime.InteropServices.COMException)
+                        InfoBox.Text = SULocalizedStrings.StringForKey("Profile Generation Error");
+                    else
+                        throw e;
 
                 }
-
-                InfoBox.Text = systemInfo;
-
         }
 
         private void CollapseWindow(object sender, EventArgs e) {
