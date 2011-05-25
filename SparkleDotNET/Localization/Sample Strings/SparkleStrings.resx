@@ -228,4 +228,16 @@
   <data name="com.Sparkle.NoUnarchiverError" xml:space="preserve">
     <value>An error occurred while extracting the archive. Please try again later.</value>
   </data>
+  <data name="CPU Speed (GHz)" xml:space="preserve">
+    <value>CPU Speed (GHz)</value>
+  </data>
+  <data name="CPU Type" xml:space="preserve">
+    <value>CPU Type</value>
+  </data>
+  <data name="Profile Generation Error" xml:space="preserve">
+    <value>An error occured while generating the system profile.</value>
+  </data>
+  <data name="Preferred Language" xml:space="preserve">
+    <value>Preferred Language</value>
+  </data>
 </root>

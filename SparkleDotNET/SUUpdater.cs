@@ -211,6 +211,18 @@ namespace SparkleDotNET {
             }
         }
 
+        public DateTime LastProfileSubmitDate {
+            get {
+                return host.LastProfileSubmitDate;
+            }
+
+            set {
+                this.WillChangeValueForKey("LastProfileSubmitDate");
+                host.LastProfileSubmitDate = value;
+                this.DidChangeValueForKey("LastProfileSubmitDate");
+            }
+        }
+
         public bool SendsSystemProfile {
             get {
                 object value = host.ObjectForUserDefaultsKey(SUConstants.SUSendProfileInfoKey);
@@ -313,11 +325,11 @@ namespace SparkleDotNET {
                 checkTimer.Stop();
                 checkTimer = null;
             }
-
-            host.LastUpdateCheckDate = DateTime.Now;
             
             driver = aDriver;
             driver.CheckForUpdatesAtURLWithHost(ParameterizedFeedURL(), host);
+
+            host.LastUpdateCheckDate = DateTime.Now;
 
             ResetUpdateCycle();
         }
@@ -325,19 +337,33 @@ namespace SparkleDotNET {
         
         private string ParameterizedFeedURL() {
 
-           // Only send parameters weekly to help normalise data
+            // Let's only send the system profiling information once per week at most, so we normalize daily-checkers vs. biweekly-checkers and the such.
 
-            if (!SendsSystemProfile || !LastUpdateWasMoreThanAWeekAgo()) {
+            if (!SendsSystemProfile || !LastProfileSubmitWasMoreThanAWeekAgo()) {
                 return FeedURL;
             } else {
 
-                ArrayList parameterStrings = new ArrayList();
+                host.LastProfileSubmitDate = DateTime.Now;
 
-                foreach (Dictionary<string, string> item in SUSystemProfiler.SystemProfileForHost(host)) {
+                List<string> parameterStrings = new List<string>();
 
-                    parameterStrings.Add(String.Format("{0}={1}",
-                        Uri.EscapeUriString((string)item.ValueForKey(SUConstants.SUProfileItemKeyKey)),
-                        Uri.EscapeUriString((string)item.ValueForKey(SUConstants.SUProfileItemValueKey))));
+                try {
+
+                    foreach (Dictionary<string, string> item in SUSystemProfiler.SystemProfileForHost(host))
+                    {
+
+                        parameterStrings.Add(String.Format("{0}={1}",
+                            Uri.EscapeUriString((string)item.ValueForKey(SUConstants.SUProfileItemKeyKey)),
+                            Uri.EscapeUriString((string)item.ValueForKey(SUConstants.SUProfileItemValueKey))));
+                    }
+
+                } catch (Exception e) {
+
+                    if (e is System.Runtime.InteropServices.COMException)
+                        return FeedURL;
+                    else
+                        throw e;
+
                 }
 
                 if (parameterStrings.Count > 0) {
@@ -355,8 +381,6 @@ namespace SparkleDotNET {
                         divider = "&";
                     }
 
-                    System.Windows.MessageBox.Show(url);
-
                     return url;
 
                 } else {
@@ -365,11 +389,11 @@ namespace SparkleDotNET {
             }
         }
 
-        private bool LastUpdateWasMoreThanAWeekAgo() {
+        private bool LastProfileSubmitWasMoreThanAWeekAgo() {
 
-            DateTime lastUpdate = LastUpdateCheckDate;
+            DateTime lastSubmitDate = LastProfileSubmitDate;
             const double oneWeek = 60 * 60 * 24 * 7;
-            return ((DateTime.Now - lastUpdate).TotalSeconds >= oneWeek);
+            return ((DateTime.Now - lastSubmitDate).TotalSeconds >= oneWeek);
         }
 
 
