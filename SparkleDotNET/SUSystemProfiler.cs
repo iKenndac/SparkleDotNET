@@ -5,8 +5,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
-using System.Management;
 using System.Reflection;
+using Microsoft.Win32;
 using KNFoundation;
 using KNFoundation.KNKVC;
 
@@ -47,57 +47,65 @@ namespace SparkleDotNET {
 
             profile.Add(DictionaryForProfileItem("ncpu", SULocalizedStrings.StringForKey("Number of CPUs"), Environment.ProcessorCount.ToString(), Environment.ProcessorCount.ToString()));
 
-            using (ManagementObject mObj = new ManagementObject("Win32_Processor.DeviceID='CPU0'")) {
+            // CPU Speed
 
-                // CPU Speed
-                uint sp = (uint)mObj["CurrentClockSpeed"];
-                profile.Add(DictionaryForProfileItem("cpuFreqMHz", SULocalizedStrings.StringForKey("CPU Speed (GHz)"), sp.ToString(), ((double)sp / 1000.0).ToString()));
+            // Use methods other than System.Management when possible, because WMI is both horrendously slow, and
+            // quite prone to deciding to break or completely screw up by itself, it seems.
 
+            string cpuSpeed;
+            using (var cpuRegistryKey = Registry.LocalMachine.OpenSubKey(@"HARDWARE\DESCRIPTION\System\CentralProcessor\0", false))
+                cpuSpeed = cpuRegistryKey.GetValue("~MHz").ToString();
+            if (Helpers.StringIsNullOrWhiteSpace(cpuSpeed))
+                using (var mObj = new System.Management.ManagementObject("Win32_Processor.DeviceID='CPU0'"))
+                    cpuSpeed = mObj["CurrentClockSpeed"].ToString();
 
-                // CPU Type
+            profile.Add(DictionaryForProfileItem("cpuFreqMHz", SULocalizedStrings.StringForKey("CPU Speed (GHz)"), cpuSpeed.ToString(), (Double.Parse(cpuSpeed) / 1000.0).ToString()));
 
-                // A problem with this is that Mac OS X and Windows have different values for this; on Windows this is
-                // the processor architecture, and on OS X it is the CPU type.
-                // Windows: http://msdn.microsoft.com/en-us/library/aa394373%28VS.85%29.aspx
-                // OS X: http://www.opensource.apple.com/source/xnu/xnu-1228.12.14/osfmk/mach/machine.h
+            // CPU Type
 
-                ushort arch = (ushort)mObj["Architecture"];
-                int archSparkle = -1;
-                string archDisplay = "Unknown";
-                switch (arch)
-                {
-                    case 0:
-                        archSparkle = 7;
-                        archDisplay = "x86";
-                        break;
-                    case 1:
-                        archSparkle = 8;
-                        archDisplay = "MIPS";
-                        break;
-                    case 2:
-                        archSparkle = 16;
-                        archDisplay = "Alpha";
-                        break;
-                    case 3:
-                        archSparkle = 3;
-                        archDisplay = "PowerPC";
-                        break;
-                    case 9:
-                        archSparkle = 7;
-                        archDisplay = "x86_64";
-                        break;
-                }
+            // A problem with this is that Mac OS X and Windows have different values for this; on Windows this is
+            // the processor architecture, and on OS X it is the CPU type.
+            // Windows: http://msdn.microsoft.com/en-us/library/aa394373%28VS.85%29.aspx
+            // OS X: http://www.opensource.apple.com/source/xnu/xnu-1228.12.14/osfmk/mach/machine.h
 
-                profile.Add(DictionaryForProfileItem("cputype", SULocalizedStrings.StringForKey("CPU Type"), archSparkle.ToString(), archDisplay));
+            var sysInfo = new NativeMethods.SYSTEM_INFO();
+            NativeMethods.GetSystemInfoAbstracted(ref sysInfo);
 
-
-                // CPU Subtype
-
-                // Until someone wants to write something that will work this out, let's just send the equivalent to
-                // the OS X _ALL. Actually, that's probably accurate, since .NET was designed to be portable.
-
-                profile.Add(DictionaryForProfileItem("cpusubtype", SULocalizedStrings.StringForKey("CPU Subtype"), "0", "0"));
+            int archSparkle = -1;
+            string archDisplay = "Unknown";
+            switch (sysInfo.wProcessorArchitecture)
+            {
+                case 0:
+                    archSparkle = 7;
+                    archDisplay = "x86";
+                    break;
+                case 1:
+                    archSparkle = 8;
+                    archDisplay = "MIPS";
+                    break;
+                case 2:
+                    archSparkle = 16;
+                    archDisplay = "Alpha";
+                    break;
+                case 3:
+                    archSparkle = 3;
+                    archDisplay = "PowerPC";
+                    break;
+                case 9:
+                    archSparkle = 7;
+                    archDisplay = "x86_64";
+                    break;
             }
+
+            profile.Add(DictionaryForProfileItem("cputype", SULocalizedStrings.StringForKey("CPU Type"), archSparkle.ToString(), archDisplay));
+
+
+            // CPU Subtype
+
+            // Until someone wants to write something that will work this out, let's just send the equivalent to
+            // the OS X _ALL. Actually, that's probably accurate, since .NET was designed to be portable.
+
+            profile.Add(DictionaryForProfileItem("cpusubtype", SULocalizedStrings.StringForKey("CPU Subtype"), "0", "0"));
 
             // RAM
 
