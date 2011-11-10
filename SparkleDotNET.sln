@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkleDotNET", "SparkleDotNET\SparkleDotNET.csproj", "{5352219A-A076-449A-8319-6C29E4C21153}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkleDotNET for 3.5", "SparkleDotNET for 3.5\SparkleDotNET for 3.5.csproj", "{FAAD834C-8697-11E0-A58A-6DD74824019B}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkleDotNET Tools", "SparkleDotNET Test Application\SparkleDotNET Tools.csproj", "{1906DC8F-BFDE-4302-916E-B8D536A5DB86}"
 EndProject
 Global

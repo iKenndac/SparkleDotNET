@@ -54,6 +54,7 @@
     <Compile Include="Installation\SUExecutableInstaller.cs" />
     <Compile Include="Installation\SUMSIInstaller.cs" />
     <Compile Include="Localization\SULocalizedStrings.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="SharpZLib\BZip2\BZip2.cs" />
     <Compile Include="SharpZLib\BZip2\BZip2Constants.cs" />
     <Compile Include="SharpZLib\BZip2\BZip2Exception.cs" />
