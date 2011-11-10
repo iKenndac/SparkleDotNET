@@ -13,7 +13,7 @@ This is the license agreement for all of the code contained in SparkleDotNET. In
 5. If you don’t agree to this license, don’t use our code!
  
 The Agreement
-Copyright (c) 2010-2011 KennettNet Software Limited, Richard W. <http://rewrite.name/>
+Copyright (c) 2010-2011 KennettNet Software Limited, Richard Z.H. Wang
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
