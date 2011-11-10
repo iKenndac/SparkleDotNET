@@ -6,33 +6,12 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Management;
-using System.Runtime.InteropServices;
 using System.Reflection;
 using KNFoundation;
 using KNFoundation.KNKVC;
 
 namespace SparkleDotNET {
     class SUSystemProfiler {
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-        private class MEMORYSTATUSEX {
-            public uint dwLength;
-            public uint dwMemoryLoad;
-            public ulong ullTotalPhys;
-            public ulong ullAvailPhys;
-            public ulong ullTotalPageFile;
-            public ulong ullAvailPageFile;
-            public ulong ullTotalVirtual;
-            public ulong ullAvailVirtual;
-            public ulong ullAvailExtendedVirtual;
-            public MEMORYSTATUSEX() {
-                this.dwLength = (uint)Marshal.SizeOf(typeof(MEMORYSTATUSEX));
-            }
-        }
-
-        [return: MarshalAs(UnmanagedType.Bool)]
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern bool GlobalMemoryStatusEx([In, Out] MEMORYSTATUSEX lpBuffer);
 
         public static List<Dictionary<string, string>> SystemProfileForHost(SUHost host) {
 
@@ -123,8 +102,8 @@ namespace SparkleDotNET {
             // RAM
 
             ulong installedMemory = 0;
-            MEMORYSTATUSEX memStatus = new MEMORYSTATUSEX();
-            if (GlobalMemoryStatusEx(memStatus)) {
+            var memStatus = new NativeMethods.MEMORYSTATUSEX();
+            if (NativeMethods.GlobalMemoryStatusEx(memStatus)) {
                 installedMemory = memStatus.ullTotalPhys / 1024 / 1024;
             }
 

@@ -70,6 +70,9 @@
     <Compile Include="..\SparkleDotNET\SUUpdater.cs">
       <Link>SUUpdater.cs</Link>
     </Compile>
+    <Compile Include="..\SparkleDotNET\NativeMethods.cs">
+      <Link>NativeMethods.cs</Link>
+    </Compile>
     <Compile Include="..\SparkleDotNET\Installation\*.cs">
       <Link>Installation\%(FileName)</Link>
     </Compile>
