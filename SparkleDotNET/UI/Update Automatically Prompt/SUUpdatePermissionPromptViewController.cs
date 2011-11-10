@@ -39,7 +39,7 @@ namespace SparkleDotNET {
 
                 } catch (Exception e) {
 
-                    if (e is System.Runtime.InteropServices.COMException)
+                    if (e is System.Runtime.InteropServices.COMException || e is System.Management.ManagementException)
                         InfoBox.Text = SULocalizedStrings.StringForKey("Profile Generation Error");
                     else
                         throw e;
